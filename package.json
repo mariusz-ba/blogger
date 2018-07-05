@@ -21,7 +21,9 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "bcrypt": "^2.0.1",
     "express": "^4.16.3",
+    "mongoose": "^5.2.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",

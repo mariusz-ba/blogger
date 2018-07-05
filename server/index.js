@@ -7,7 +7,13 @@ import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackConfig from '../webpack.config.dev.js';
 
+
 const app = express();
+
+
+// Database connection
+import mongoose from 'mongoose';
+mongoose.connect('mongodb://127.0.0.1:27017/blogger');
 
 
 // Configuration
