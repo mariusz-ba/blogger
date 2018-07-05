@@ -22,7 +22,9 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bcrypt": "^2.0.1",
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "lodash": "^4.17.10",
     "mongoose": "^5.2.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
