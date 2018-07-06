@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signOut } from '../../actions/authActions';
 
@@ -11,6 +11,10 @@ class Navbar extends Component {
 
   render() {
     const { isAuthenticated } = this.props.auth;
+    const { pathname } = this.props.location;
+
+    if(['/signup', '/signin'].indexOf(pathname) > -1)
+      return null;
 
     const navbarActions = isAuthenticated ? 
     (
@@ -38,4 +42,4 @@ class Navbar extends Component {
 
 const mapStateToProps = ({ auth }) => ({ auth });
 
-export default connect(mapStateToProps, { signOut })(Navbar);
+export default withRouter(connect(mapStateToProps, { signOut })(Navbar));

@@ -42,6 +42,7 @@ class Signin extends Component {
 
     return (
       <section className="sign">
+        <Link to="/"><i class="fas fa-envelope-open site-logo"></i></Link>
         <div className="sign-panel">
           <h1>Sign in</h1>
           { errors &&
