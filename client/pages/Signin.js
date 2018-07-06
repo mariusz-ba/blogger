@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { signIn } from '../actions/authActions';
 import { isEmpty } from 'lodash'
 
@@ -36,37 +36,40 @@ class Signin extends Component {
 
     return (
       <section className="signin">
-        <h1>Sign in</h1>
-        { errors &&
-          <p>{errors.form}</p>
-        }
-        <form className="signin-form" action="post">
-          <div className="signin-form__field">
-            <input 
-              id="identifier"
-              type="text" 
-              className="signin-form__field--identifier" 
-              name="identifier"
-              value={identifier}
-              onChange={this.onChangeIdentifier}
-            />
-            <label htmlFor="identifier">Login or E-Mail</label>
-          </div>
-          <div className="signin-form__field">
-            <input
-              id="password" 
-              type="password" 
-              className="signin-form__field--password" 
-              name="password"
-              value={password}
-              onChange={this.onChangePassword}
-            />
-            <label htmlFor="password">Password</label>
-          </div>
-          <div className="signin-form__field">
-            <button className="signin-form__submit" type="submit" onClick={this.onSubmit}>Sign in</button>
-          </div>
-        </form>
+        <div className="signin-panel">
+          <h1>Sign in</h1>
+          { errors &&
+            <p class="signin-errors">{errors.form}</p>
+          }
+          <form className="signin-form" action="post">
+            <div className="signin-form__field">
+              <label htmlFor="identifier">Login or E-Mail</label>
+              <input 
+                id="identifier"
+                type="text" 
+                className="signin-form__field--identifier" 
+                name="identifier"
+                value={identifier}
+                onChange={this.onChangeIdentifier}
+              />
+            </div>
+            <div className="signin-form__field">
+              <label htmlFor="password">Password</label>
+              <input
+                id="password" 
+                type="password" 
+                className="signin-form__field--password" 
+                name="password"
+                value={password}
+                onChange={this.onChangePassword}
+              />
+            </div>
+            <div className="signin-form__field">
+              <button className="signin-form__submit" type="submit" onClick={this.onSubmit}>Sign in</button>
+            </div>
+          </form>
+          <p className="signin-form__create">New to blogger? <Link to="/signup">Create account</Link>.</p>
+        </div>
       </section>
     )
   }
