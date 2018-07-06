@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
 import { pick } from 'lodash';
 
@@ -49,60 +49,65 @@ class Signup extends Component {
     const { username, email, password, confirm, errors } = this.state;
 
     return (
-      <section className="singup">
-        <h1>Sign up</h1>
-        { errors &&
-          Object.keys(errors).map((error, index) => <p key={index}>{errors[error]}</p>)
-        }
-        <form className="signup-form" action="post">
-          <div className="signup-form__field">
-            <input 
-              id="username" 
-              type="text" 
-              className="signup-form__field--username" 
-              name="username"
-              value={username}
-              onChange={this.onChangeUsername}
-            />
-            <label htmlFor="username">Username</label>
-          </div>
-          <div className="signup-form__field">
-            <input 
-              id="email" 
-              type="email" 
-              className="signup-form__field--email" 
-              name="email"
-              value={email}
-              onChange={this.onChangeEmail}
-            />
-            <label htmlFor="email">E-Mail</label>
-          </div>
-          <div className="signup-form__field">
-            <input 
-              id="password" 
-              type="password" 
-              className="signup-form__field--password" 
-              name="password"
-              value={password}
-              onChange={this.onChangePassword}
-            />
-            <label htmlFor="password">Password</label>
-          </div>
-          <div className="signup-form__field">
-            <input
-              id="confirm" 
-              type="password" 
-              className="signup-form__field--confirm" 
-              name="confirm"
-              value={confirm}
-              onChange={this.onChangeConfirm}
-            />
-            <label htmlFor="confirm">Confirm password</label>
-          </div>
-          <div className="signup-form__field">
-            <button className="signup-form__submit" type="submit" onClick={this.onSubmit}>Sign up</button>
-          </div>
-        </form>
+      <section className="sign">
+        <div className="sign-panel">
+          <h1>Sign up</h1>
+          { errors &&
+            Object.keys(errors).map((error, index) => <p key={index} class="sign-errors">{errors[error]}</p>)
+          }
+          <form className="sign-form" action="post">
+            <div className="sign-form__field">
+              <label htmlFor="username">Username</label>
+              <input 
+                id="username" 
+                type="text" 
+                className="sign-form__field--username" 
+                name="username"
+                value={username}
+                onChange={this.onChangeUsername}
+              />
+            </div>
+            <div className="sign-form__field">
+              <label htmlFor="email">E-Mail</label>
+              <input 
+                id="email" 
+                type="email" 
+                className="sign-form__field--email" 
+                name="email"
+                value={email}
+                onChange={this.onChangeEmail}
+              />
+            </div>
+            <div className="sign-form__field">
+              <label htmlFor="password">Password</label>
+              <input 
+                id="password" 
+                type="password" 
+                className="sign-form__field--password" 
+                name="password"
+                value={password}
+                onChange={this.onChangePassword}
+              />
+            </div>
+            <div className="sign-form__field">
+              <label htmlFor="confirm">Confirm password</label>
+              <input
+                id="confirm" 
+                type="password" 
+                className="sign-form__field--confirm" 
+                name="confirm"
+                value={confirm}
+                onChange={this.onChangeConfirm}
+              />
+            </div>
+            <div className="sign-form__field">
+              <button className="sign-form__submit" type="submit" onClick={this.onSubmit}>Sign up</button>
+            </div>
+          </form>
+          <p class="sign-form__footer">
+            Already have account? <Link to="/signin">Sign in</Link>
+          </p>
+        </div>
       </section>
     )
   }

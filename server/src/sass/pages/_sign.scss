@@ -1,5 +1,5 @@
-.signin {
-  .signin-panel {
+.sign {
+  .sign-panel {
     max-width: 400px;
     box-shadow: 0 0 3px #d3d3d3;
     padding: 10px;
@@ -11,7 +11,7 @@
       text-align: center;
     }
 
-    .signin-errors {
+    .sign-errors {
       margin: 20px 0;
       padding: 8px 10px;
       background: #ef5350;
@@ -20,8 +20,8 @@
       border-radius: 3px;
     }
 
-    .signin-form {
-      .signin-form__field {
+    .sign-form {
+      .sign-form__field {
         margin-bottom: 10px;
 
         label {
@@ -44,7 +44,7 @@
           box-shadow: inset 0 0 2px #e3e3e3;
         }
 
-        .signin-form__submit {
+        .sign-form__submit {
           transition: background linear .2s;
           background: #388E3C;
           color: #fff;
@@ -58,10 +58,9 @@
       }
     }
 
-    .signin-form__create {
+    .sign-form__footer {
       text-align: center;
       padding: 10px 0;
-      font-size: 14px;
 
       a {
         text-decoration: none;

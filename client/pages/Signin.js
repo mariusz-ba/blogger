@@ -35,40 +35,40 @@ class Signin extends Component {
     const { errors } = this.props.auth;
 
     return (
-      <section className="signin">
-        <div className="signin-panel">
+      <section className="sign">
+        <div className="sign-panel">
           <h1>Sign in</h1>
           { errors &&
-            <p class="signin-errors">{errors.form}</p>
+            <p class="sign-errors">{errors.form}</p>
           }
-          <form className="signin-form" action="post">
-            <div className="signin-form__field">
+          <form className="sign-form" action="post">
+            <div className="sign-form__field">
               <label htmlFor="identifier">Login or E-Mail</label>
               <input 
                 id="identifier"
                 type="text" 
-                className="signin-form__field--identifier" 
+                className="sign-form__field--identifier" 
                 name="identifier"
                 value={identifier}
                 onChange={this.onChangeIdentifier}
               />
             </div>
-            <div className="signin-form__field">
+            <div className="sign-form__field">
               <label htmlFor="password">Password</label>
               <input
                 id="password" 
                 type="password" 
-                className="signin-form__field--password" 
+                className="sign-form__field--password" 
                 name="password"
                 value={password}
                 onChange={this.onChangePassword}
               />
             </div>
-            <div className="signin-form__field">
-              <button className="signin-form__submit" type="submit" onClick={this.onSubmit}>Sign in</button>
+            <div className="sign-form__field">
+              <button className="sign-form__submit" type="submit" onClick={this.onSubmit}>Sign in</button>
             </div>
           </form>
-          <p className="signin-form__create">New to blogger? <Link to="/signup">Create account</Link>.</p>
+          <p className="sign-form__footer">New to blogger? <Link to="/signup">Create account</Link>.</p>
         </div>
       </section>
     )
