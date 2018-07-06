@@ -3,6 +3,8 @@ import { withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
 import { pick } from 'lodash';
 
+import { setAuthErrors } from '../actions/authActions';
+
 class Signup extends Component {
   state = {
     username: '',
@@ -10,6 +12,10 @@ class Signup extends Component {
     password: '',
     confirm: '',
     errors: null
+  }
+
+  componentWillMount() {
+    setAuthErrors(null);
   }
 
   onChangeUsername = (e) => {

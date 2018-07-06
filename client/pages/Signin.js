@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
+import { isEmpty } from 'lodash';
+
 import { signIn } from '../actions/authActions';
-import { isEmpty } from 'lodash'
+import { setAuthErrors } from '../actions/authActions';
 
 class Signin extends Component {
   state = {
     identifier: '',
     password: '',
     errors: null
+  }
+
+  componentWillMount() {
+    this.props.setAuthErrors(null);
   }
 
   onChangeIdentifier = (e) => {
@@ -77,4 +83,4 @@ class Signin extends Component {
 
 const mapStateToProps = ({ auth }) => ({ auth });
 
-export default withRouter(connect(mapStateToProps, { signIn })(Signin));
+export default withRouter(connect(mapStateToProps, { signIn, setAuthErrors })(Signin));
