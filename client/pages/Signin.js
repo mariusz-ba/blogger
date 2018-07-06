@@ -32,11 +32,14 @@ class Signin extends Component {
 
   render() {
     const { identifier, password } = this.state;
-    const { errors } = this.props
+    const { errors } = this.props.auth;
 
     return (
       <section className="signin">
         <h1>Sign in</h1>
+        { errors &&
+          <p>{errors.form}</p>
+        }
         <form className="signin-form" action="post">
           <div className="signin-form__field">
             <input 
