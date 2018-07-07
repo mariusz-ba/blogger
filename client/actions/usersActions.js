@@ -94,7 +94,7 @@ export const deletedUser = (identifier) => ({
   payload: identifier
 })
 
-f
+
 /**
  * Use this action to set users errors.
  * @param {Object} errors - errors
