@@ -1,0 +1,32 @@
+.heading-lined {
+  text-align: center;
+  margin-bottom: 1.125rem;
+
+  overflow: hidden;
+  
+  span {
+    position: relative;
+    display: inline-block;
+
+    
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      height: 50%;
+      border-bottom: 1px solid rgb(224, 226, 228);
+      top: 0;
+      width: 600px;
+    }
+  
+    &::before {
+      right: 100%;
+      margin-right: 10px;
+    }
+  
+    &::after {
+      left: 100%;
+      margin-left: 10px;
+    }
+  }
+}

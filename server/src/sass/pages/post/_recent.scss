@@ -1,0 +1,49 @@
+.recent {
+  grid-area: recent;
+
+  .recent-list {
+    list-style-type: none;
+
+    .recent-list__item {
+      border-bottom: 1px solid rgb(224, 226, 228);
+
+      a {
+        text-decoration: none;
+        color: #1a1a1a;
+      
+        &:hover .recent-item {
+          background: #fff;
+        }
+      }
+
+      .recent-item {
+        transition: background linear .2s;
+        
+        display: grid;
+        grid-column-gap: 10px;
+        grid-template-areas: "cover heading"
+                             "cover subheading";
+        height: 84px;
+        padding: 10px 0;
+        padding-right: 5px;
+
+        .recent-item__cover {
+          grid-area: cover;
+          width: 100%;
+          max-width: 113px;
+          max-height: 100%;
+        }
+
+        .recent-item__heading {
+          grid-area: heading;
+        }
+
+        .recent-item__subheading {
+          grid-area: subheading;
+        }
+      }
+
+    }
+
+  }
+}

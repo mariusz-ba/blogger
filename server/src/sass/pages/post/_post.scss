@@ -1,0 +1,17 @@
+.post {
+  grid-area: post;
+  box-shadow: 0 0 3px rgb(224, 226, 228);
+  background: #fff;
+
+  .post__header {
+    .post__cover {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+    }
+  }
+
+  .post__content {
+    padding: 20px;
+  }
+}
