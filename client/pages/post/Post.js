@@ -19,12 +19,16 @@ export default class Post extends Component {
             </div>
           </div>
           <div className="author">
-            <h5 className="heading-lined">About me</h5>
+            <h5 className="heading-lined">
+              <span>ABOUT ME</span>
+            </h5>
             <img className="author__image" src="https://source.unsplash.com/random" alt="Author"/>
             <p className="author__description">Praesent in varius orci. Vestibulum purus mi, pharetra at interdum ut, volutpat sit amet ante. Quisque ultricies enim ac felis aliquam egestas.</p>
           </div>
           <div className="recent">
-            <h5 className="heading-lined">Recent posts</h5>
+            <h5 className="heading-lined">
+              <span>RECENT POSTS</span>
+            </h5>
             <ul className="recent-list">
               <li className="recent-list__item">
                 <Link to="/">
@@ -55,7 +59,9 @@ export default class Post extends Component {
               </li>
             </ul>
           </div>
-          <div className="advert"></div>
+          <div className="advert">
+            <img className="advert__image" src="https://15xomi2v386wytrb8nbsoq34-wpengine.netdna-ssl.com/wp-content/uploads/2016/02/300x200-Placeholder-1.png" alt="Advertisement"/>
+          </div>
         </div>
       </div>
     )
