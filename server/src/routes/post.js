@@ -7,8 +7,8 @@ import * as postsController from '../controllers/post';
 
 const router = express.Router();
 router
-.get    ('/'    , postsController.getPosts)
-.get    ('/:id' , postsController.getPost)
+.get    ('/'    , authenticate, postsController.getPosts)
+.get    ('/:id' , authenticate, postsController.getPost)
 .post   ('/'    , authenticate, postsController.createPost)
 .put    ('/:id' , authenticate, postsController.updatePost)
 .delete ('/:id' , authenticate, postsController.deletePost);
