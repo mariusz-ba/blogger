@@ -27,6 +27,8 @@
         padding: 10px 0;
         padding-right: 5px;
 
+        position: relative;
+
         .recent-item__cover {
           grid-area: cover;
           width: 100%;
@@ -40,6 +42,10 @@
 
         .recent-item__subheading {
           grid-area: subheading;
+          text-align: right;
+          position: absolute;
+          bottom: 0;
+          right: 0;
         }
       }
 

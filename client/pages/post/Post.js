@@ -23,7 +23,7 @@ export default class Post extends Component {
               <span>ABOUT ME</span>
             </h5>
             <img className="author__image" src="https://source.unsplash.com/random" alt="Author"/>
-            <p className="author__description">Praesent in varius orci. Vestibulum purus mi, pharetra at interdum ut, volutpat sit amet ante. Quisque ultricies enim ac felis aliquam egestas.</p>
+            <p className="author__description"><small>Praesent in varius orci. Vestibulum purus mi, pharetra at interdum ut, volutpat sit amet ante. Quisque ultricies enim ac felis aliquam egestas.</small></p>
           </div>
           <div className="recent">
             <h5 className="heading-lined">
@@ -35,7 +35,7 @@ export default class Post extends Component {
                   <div className="recent-item">
                     <img className="recent-item__cover" src="https://source.unsplash.com/random" alt="Cover"/>
                     <h5 className="recent-item__heading">Mauris sollicitudin ex dictum rutrum gravida.</h5>
-                    <p className="recent-item__subheading">23-06-2018</p>
+                    <p className="recent-item__subheading"><small>23-06-2018</small></p>
                   </div>
                 </Link>
               </li>
@@ -44,7 +44,7 @@ export default class Post extends Component {
                   <div className="recent-item">
                   <img className="recent-item__cover" src="https://source.unsplash.com/random" alt="Cover"/>
                     <h5 className="recent-item__heading">Mauris sollicitudin ex dictum rutrum gravida.</h5>
-                    <p className="recent-item__subheading">23-06-2018</p>
+                    <p className="recent-item__subheading"><small>23-06-2018</small></p>
                   </div>
                 </Link>
               </li>
@@ -53,7 +53,7 @@ export default class Post extends Component {
                   <div className="recent-item">
                   <img className="recent-item__cover" src="https://source.unsplash.com/random" alt="Cover"/>
                     <h5 className="recent-item__heading">Mauris sollicitudin ex dictum rutrum gravida.</h5>
-                    <p className="recent-item__subheading">23-06-2018</p>
+                    <p className="recent-item__subheading"><small>23-06-2018</small></p>
                   </div>
                 </Link>
               </li>

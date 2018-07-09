@@ -1,6 +1,6 @@
 .post {
   grid-area: post;
-  box-shadow: 0 0 3px rgb(224, 226, 228);
+  box-shadow: 0 0 5px rgb(224, 226, 228);
   background: #fff;
 
   .post__header {
@@ -13,5 +13,24 @@
 
   .post__content {
     padding: 20px;
+
+    .post__heading, 
+    .post__subheading {
+      text-align: center;
+      line-height: 1.125em;
+    }
+    
+    .post__heading {
+      margin-bottom: 1.25rem;
+    }
+
+    .post__subheading {
+      margin-bottom: 1rem;
+      color: #00a0eb; // Export that to theme
+    }
+
+    .post__content-wrapper {
+      line-height: 1.5em;
+    }
   }
 }
