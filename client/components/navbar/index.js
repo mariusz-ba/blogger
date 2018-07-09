@@ -18,23 +18,25 @@ class Navbar extends Component {
 
     const navbarActions = isAuthenticated ? 
     (
-      <li className="navbar__menu--item"><Link to="/" onClick={this.onClickSignOut}>Sign out</Link></li>
+      <li className="navbar__menu-item"><Link to="/" onClick={this.onClickSignOut}>Sign out</Link></li>
     ) : 
     (
       <React.Fragment>
-        <li className="navbar__menu--item"><Link to="/signin">Sign in</Link></li>
-        <li className="navbar__menu--item"><Link to="/signup">Sign up</Link></li>
+        <li className="navbar__menu-item"><Link to="/signin">Sign in</Link></li>
+        <li className="navbar__menu-item"><Link to="/signup">Sign up</Link></li>
       </React.Fragment>
     )
 
     return (
       <div className="navbar">
-        <nav className="navbar-nav">
-          <ul className="navbar__menu">
-            <li className="navbar__menu--item"><Link to="/">Home</Link></li>
-            { navbarActions }
-          </ul>
-        </nav>
+        <div className="container">
+          <nav className="navbar-nav">
+            <ul className="navbar__menu">
+              <li className="navbar__menu-item"><Link to="/">Home</Link></li>
+              { navbarActions }
+            </ul>
+          </nav>
+        </div>
       </div>
     )
   }
