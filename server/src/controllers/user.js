@@ -18,10 +18,10 @@ export const getUser = (req, res, next) => {
   if(ObjectId.isValid(req.params.id))
     query.push({ _id: req.params.id })
 
-  User.find({
+  User.findOne({
     $or: query
   }, { password: false })
-    .then(users => res.status(200).json(users))
+    .then(user => res.status(200).json(user))
     .catch(err => next(err));
 }
 
