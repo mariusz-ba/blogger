@@ -1,21 +1,41 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
+import { fetchPost } from '../../actions/postsActions';
 
-export default class Post extends Component {
+class Post extends Component {
+  componentDidMount() {
+    // Fetch this post
+    this.props.fetchPost(this.props.match.params.id);
+  }
+
   render() {
+    const { id } = this.props.match.params;
+    const { isFetching, posts } = this.props.posts;
+
+    if(isFetching) {
+      // render loading screen
+      return (<h1>Loading...</h1>);
+    }
+
+    const post = posts ? posts[id] : null;
+
+    if(!post) {
+      // after fetching post doesn't exist
+      return (<h1>404. Not found</h1>);
+    }
+
     return (
       <div className="container">
         <div className="post-layout">
           <div className="post">
             <div className="post__header">
-              <img className="post__cover" src="https://source.unsplash.com/random" alt="Cover"/>
+              <img className="post__cover" src={post.cover} alt="Cover"/>
             </div>
             <div className="post__content">
-              <h5 className="post__subheading">24-06-2018</h5>
-              <h2 className="post__heading">Post heading</h2>
-              <div className="post__content-wrapper">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus elementum faucibus tellus. Quisque ornare magna vitae commodo convallis. Aliquam vel risus feugiat, pellentesque lectus eget, lacinia purus. Fusce non ante sodales, mattis nibh eget, tincidunt justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin eleifend mollis ipsum at feugiat. Morbi tincidunt porttitor dui eget elementum. Mauris auctor sem posuere turpis mattis, eget elementum ex imperdiet. Duis egestas, justo aliquam aliquam lobortis, lacus elit elementum dolor, vitae sagittis neque dui id urna. Quisque efficitur elementum mi in aliquet. Fusce ut varius augue. Quisque aliquet lacus felis, condimentum posuere odio tincidunt sit amet. Pellentesque facilisis luctus ligula, at tincidunt metus vehicula ac. Duis id eros vel neque pulvinar luctus.</p>
-              </div>
+              <h5 className="post__subheading">{post.createdAt}</h5>
+              <h2 className="post__heading">{post.title}</h2>
+              <div className="post__content-wrapper" dangerouslySetInnerHTML={{ __html: post.content }}></div>
             </div>
           </div>
           <div className="author">
@@ -67,3 +87,7 @@ export default class Post extends Component {
     )
   }
 }
+
+const mapStateToProps = ({ posts }) => ({ posts });
+
+export default withRouter(connect(mapStateToProps, { fetchPost })(Post));
