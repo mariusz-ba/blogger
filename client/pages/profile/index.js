@@ -1,24 +1,21 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { fetchUser } from '../../actions/usersActions';
+import {
+  Switch,
+  Route,
+  withRouter
+} from 'react-router-dom';
 
-class Profile extends Component {
-  componentDidMount() {
-    // Fetch user data
-  }
+import Profile from './Profile';
+import ProfileSettings from './ProfileSettings';
 
+export default withRouter (class extends Component {
   render() {
-    const { id } = this.props.match.params;
-
     return (
-      <div>
-        <h1>User profile (user id: { id })</h1>
-      </div>
+      <Switch>
+        <Route exact path={this.props.match.path} component={Profile}/>
+        <Route path={`${this.props.match.path}/settings`} component={ProfileSettings}/>
+        <Route path={`${this.props.match.path}/:id`} component={Profile}/>
+      </Switch>
     )
   }
-}
-
-const mapStateToProps = ({ users }) => ({ users });
-
-export default withRouter(connect(mapStateToProps, { fetchUser })(Profile));
+})

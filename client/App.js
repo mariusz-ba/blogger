@@ -22,7 +22,7 @@ export default () => (
         <Route exact path="/" component={Home}/>
         <Route path="/signin" component={Signin}/>
         <Route path="/signup" component={Signup}/>
-        <AuthRequiredRoute path="/users/:id" component={Profile}/>
+        <AuthRequiredRoute path="/profile" component={Profile}/>
         <AuthRequiredRoute path="/posts" component={Posts}/>
       </Switch>
     </div>
