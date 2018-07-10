@@ -1,0 +1,140 @@
+.profile {
+  .header {
+    text-align: center;
+
+    .header__avatar {
+      width: 192px;
+      height: 192px;
+      border-radius: 50%;
+      box-shadow: 0 0 3px #1a1a1a;
+      margin-top: 1.25em;
+      margin-bottom: 2.5em;
+      object-fit: cover;
+    }
+
+    .header__name {
+      margin-bottom: 1.125em;
+    }
+
+    .header__description {
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5em;
+      word-spacing: 2px;
+      margin-bottom: 2em;
+      color: lighten(#1a1a1a, 40%);
+    }
+
+    .actions {
+      margin-bottom: 3em;
+
+      button {
+        border: none;
+        border-radius: 5px;
+        padding: 12px 32px;
+        font-weight: bold;
+        transition: background linear .125s;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      .actions__follow {
+        &:hover {
+          background: #00a0eb;
+          color: #fff;
+        }
+      }
+
+      .actions__follow--unfollow {
+        background: #00a0eb;
+        color: #fff;
+        &:hover {
+          background: lighten(#00a0eb, 20%);
+        }
+      }
+
+    }
+  }
+
+  .posts {
+    .posts__list {
+      list-style-type: none;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-column-gap: 20px;
+      grid-row-gap: 20px;
+
+      .posts__list-item {
+        text-shadow: 0 0 2px #1a1a1a;
+        
+        a {
+          overflow: hidden;
+          display: block;
+          color: #fff;
+          text-decoration: none;
+          position: relative;
+          max-height: 300px;
+          border-radius: 5px;
+          box-shadow: 0 0 3px #1a1a1a;
+          
+          &:hover img {
+            transform: scale(1.1);
+            filter: blur(1px);
+          }
+
+          &:hover .overlay {
+            opacity: 0.8;
+          }
+
+          h3 {
+            position: absolute;
+            bottom: 1em;
+            left: 1em;
+            line-height: 1.25em;
+          }
+
+          small {
+            position: absolute;
+            bottom: 1em;
+            right: 1em;
+          }
+          
+          img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+  
+            transition: all linear .2s;
+          }
+
+          .overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: #1a1a1a;
+            opacity: 0;
+            transition: opacity linear .2s;
+          }
+        }
+        
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1280px) {
+  .profile .posts .posts__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .profile .posts .posts__list {
+    grid-template-columns: 1fr;
+  }
+}
