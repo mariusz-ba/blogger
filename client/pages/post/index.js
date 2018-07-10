@@ -16,7 +16,7 @@ class Posts extends Component {
       <Switch>
         <Route exact path={this.props.match.path} component={PostList}/>
         <Route path={`${this.props.match.path}/new`} component={PostNew}/>
-        <Route path={`${this.props.match.path}/edit`} component={PostEdit}/>
+        <Route path={`${this.props.match.path}/edit/:id`} component={PostEdit}/>
         <Route path={`${this.props.match.path}/:id`} component={Post}/>
       </Switch>
     )
