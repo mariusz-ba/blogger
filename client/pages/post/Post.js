@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { fetchPost } from '../../actions/postsActions';
+import { prettify } from '../../utils/prettyDate';
 
 class Post extends Component {
   componentDidMount() {
@@ -33,7 +34,7 @@ class Post extends Component {
               <img className="post__cover" src={post.cover} alt="Cover"/>
             </div>
             <div className="post__content">
-              <h5 className="post__subheading">{post.createdAt}</h5>
+              <h5 className="post__subheading">{prettify(post.createdAt)}</h5>
               <h2 className="post__heading">{post.title}</h2>
               <div className="post__content-wrapper" dangerouslySetInnerHTML={{ __html: post.content }}></div>
             </div>
