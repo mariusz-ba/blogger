@@ -40,8 +40,19 @@ class Profile extends Component {
   }
 
   render() {
+    const { auth } = this.props;
     const { user } = this.state;
     const { posts } = this.props.posts;
+
+    const actions = ((auth.user && user && auth.isAuthenticated) && auth.user._id === user._id) ?
+      ( 
+        <React.Fragment>
+          <Link to="/profile/settings" className="actions__settings"><i class="fas fa-cog"></i>Settings</Link>
+          <button className="actions__followers">Followers</button>
+          <button className="actions__following">Following</button>
+        </React.Fragment>
+      ) :
+      ( <button className="actions__follow">Follow</button> );
 
     return (
       <div className="profile">
@@ -49,12 +60,8 @@ class Profile extends Component {
           <header className="header">
             <img className="header__avatar" src={user && user.meta.avatar} alt="Profile"/>
             <h2 className="header__name">{user && `${user.meta.firstname} ${user.meta.lastname}`}</h2>
-            <p className="header__description">
-              { user && user.meta.description }
-            </p>
-            <div className="actions">
-              <button className="actions__follow">Follow</button>
-            </div>
+            <p className="header__description">{ user && user.meta.description }</p>
+            <div className="actions">{ actions }</div>
           </header>
           <div className="posts">
             <ul className="posts__list">

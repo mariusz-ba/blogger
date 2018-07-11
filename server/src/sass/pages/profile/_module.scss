@@ -28,24 +28,33 @@
 
     .actions {
       margin-bottom: 3em;
+      display: flex;
+      justify-content: center;
 
-      button {
+      button,
+      a {
+        display: block;
+        color: #1a1a1a;
+        background: rgba(0, 0, 0, .125);
+        text-decoration: none;
+        margin-right: 10px;
         border: none;
         border-radius: 5px;
-        padding: 12px 32px;
+        padding: 1em 2em;
+        font-size: .8em;
         font-weight: bold;
         transition: background linear .125s;
 
         &:hover {
           cursor: pointer;
-        }
-      }
-
-      .actions__follow {
-        &:hover {
           background: #00a0eb;
           color: #fff;
         }
+
+      }
+
+      &:last-child {
+        margin-right: 0;
       }
 
       .actions__follow--unfollow {
@@ -53,6 +62,14 @@
         color: #fff;
         &:hover {
           background: lighten(#00a0eb, 20%);
+        }
+      }
+
+      .actions__settings {
+        padding-left: 1em;
+        i {
+          margin-left: 0.5em;
+          margin-right: 0.5em;
         }
       }
 
