@@ -5,6 +5,8 @@ import {
   withRouter
 } from 'react-router-dom';
 import axios from 'axios';
+import { fetchPosts } from '../../actions/postsActions';
+import { prettify } from '../../utils/prettyDate';
 
 class Profile extends Component {
   state = {
@@ -29,25 +31,26 @@ class Profile extends Component {
         id = null;
     }
 
-    if(id)
+    if(id) {
       axios.get(`/api/users/${id}`)
         .then(res => this.setState({ user: res.data }))
         .catch(err => this.setState({ errors: err.response.data }));
+      this.props.fetchPosts({ author: id });
+    }
   }
 
   render() {
     const { user } = this.state;
-    console.log(user);
+    const { posts } = this.props.posts;
 
     return (
       <div className="profile">
         <div className="container">
           <header className="header">
-            <img className="header__avatar" src="https://source.unsplash.com/random" alt="Profile"/>
-            <h2 className="header__name">John Doe</h2>
+            <img className="header__avatar" src={user && user.meta.avatar} alt="Profile"/>
+            <h2 className="header__name">{user && `${user.meta.firstname} ${user.meta.lastname}`}</h2>
             <p className="header__description">
-              Hi. I am a junior Full-Stack developer. 
-              I like to create powerful good-looking web applications with JavsScript.
+              { user && user.meta.description }
             </p>
             <div className="actions">
               <button className="actions__follow">Follow</button>
@@ -56,32 +59,18 @@ class Profile extends Component {
           <div className="posts">
             <ul className="posts__list">
 
-              <li className="posts__list-item">
-                <Link to="#">
-                  <img src="https://source.unsplash.com/random" alt="Post"/>
-                  <div className="overlay"></div>
-                  <small>24-06-2018</small>
-                  <h3>Post title</h3>
-                </Link>
-              </li>
-
-              <li className="posts__list-item">
-                <Link to="#">
-                  <img src="https://source.unsplash.com/random" alt="Post"/>
-                  <div className="overlay"></div>
-                  <small>24-06-2018</small>
-                  <h3>I like to create powerful good-looking web applications with JavsScript.</h3>
-                </Link>
-              </li>
-
-              <li className="posts__list-item">
-                <Link to="#">
-                  <img src="https://source.unsplash.com/random" alt="Post"/>
-                  <div className="overlay"></div>
-                  <small>24-06-2018</small>
-                  <h3>Post title</h3>
-                </Link>
-              </li>
+              { posts &&
+                Object.values(posts).map(post => (
+                  <li className="posts__list-item">
+                    <Link to="#">
+                      <img src={post.cover} alt="Post"/>
+                      <div className="overlay"></div>
+                      <small>{prettify(post.createdAt)}</small>
+                      <h3>{post.title}</h3>
+                    </Link>
+                  </li>
+                ))
+              }
 
             </ul>
           </div>
@@ -91,6 +80,6 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => ({ auth });
+const mapStateToProps = ({ auth, posts }) => ({ auth, posts });
 
-export default withRouter(connect(mapStateToProps)(Profile));
+export default withRouter(connect(mapStateToProps, { fetchPosts })(Profile));
