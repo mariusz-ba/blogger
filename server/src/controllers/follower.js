@@ -70,7 +70,7 @@ export const createFollower = (req, res) => {
 export const deleteFollower = (req, res) => {
   Follower.deleteOne({
     follower: req.params.id,
-    following: req.body.user
+    following: req.query.user
   })
     .then(deleted => res.status(200).json(deleted))
     .catch(err => next(err));
