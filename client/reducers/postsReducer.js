@@ -19,7 +19,7 @@ export default function reducer(state = initial_state, action) {
       break;
     }
     case TYPES.RECEIVE_POSTS: {
-      state = { ...state, isFetching: false, posts: mapKeys(state.payload, '_id') };
+      state = { ...state, isFetching: false, posts: mapKeys(action.payload, '_id') };
       break;
     }
     case TYPES.DELETE_POST: {
