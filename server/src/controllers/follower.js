@@ -9,9 +9,19 @@ import Follower from '../models/follower';
  * @param {Object} res - Router response object
  */
 export const getFollowers = (req, res, next) => {
-  Follower.find({ follower: req.params.id }, { follower: false })
-    .populate('following')
-    .then(followers => res.status(200).json(followers))
+  // Determing if user wants to receive his followers or
+  // users he's following
+
+  // If req.query.followers is specified followers of given user
+  // will be returned.  
+  const condition = 
+    req.query.followers ? 
+    { populate: 'follower', query: { following: req.params.id }} :
+    { populate: 'following', query: { follower: req.params.id }};
+
+  Follower.find(condition.query)
+    .populate(condition.populate, ['_id', 'meta.firstname', 'meta.lastname', 'meta.avatar'])
+    .then(pairs => res.status(200).json(pairs.map(pair => pair[condition.populate])))
     .catch(err => next(err));
 }
 
