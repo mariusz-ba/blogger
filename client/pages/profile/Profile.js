@@ -11,7 +11,25 @@ import { prettify } from '../../utils/prettyDate';
 class Profile extends Component {
   state = {
     user: null,
-    errors: null
+    followers: null,
+    following: null,
+    errors: null,
+  }
+
+  loadUserProfile = (id) => {
+    // Get users data
+    axios.get(`/api/users/${id}`)
+      .then(res => this.setState({ user: res.data }))
+      .catch(err => this.setErrors(err.response.data));
+    // Get users followers
+    axios.get(`/api/followers/${id}`, { params: { followers: true }})
+      .then(res => this.setState({ followers: res.data }))
+      .catch(err => this.setErrors(err.response.data));
+    // Get users followed by user
+    axios.get(`/api/followers/${id}`)
+      .then(res => this.setState({ following: res.data }))
+      .catch(err => this.setErrors(err.response.data));
+    this.props.fetchPosts({ author: id });
   }
 
   componentDidMount() {
@@ -19,10 +37,9 @@ class Profile extends Component {
     // we need to render :id profile page. Otherwise
     // currently signed users profile should be displayed.
     // All this function has to do is to set appripiate id
-  
     const { isAuthenticated, user } = this.props.auth;
     let { id } = this.props.match.params;
-
+  
     if(!id) {
       // Render current user profile
       if(isAuthenticated)
@@ -31,12 +48,53 @@ class Profile extends Component {
         id = null;
     }
 
-    if(id) {
-      axios.get(`/api/users/${id}`)
-        .then(res => this.setState({ user: res.data }))
-        .catch(err => this.setState({ errors: err.response.data }));
-      this.props.fetchPosts({ author: id });
+    if(id)
+      this.loadUserProfile(id);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const nextProfile = nextProps.match.params.id;
+    if(nextProfile !== this.props.match.params.id) {
+      // Route has hanged, load user
+      const { isAuthenticated, user } = this.props.auth;
+      let id = nextProfile;
+    
+      if(!id) {
+        // Render current user profile
+        if(isAuthenticated)
+          id = user._id;
+        else
+          id = null;
+      }
+      this.loadUserProfile(id);
     }
+  }
+
+  setErrors = errors => {
+    this.setState({ errors })
+  }
+
+  onFollow = (user) => {
+    axios.post(`/api/followers/${this.props.auth.user._id}`, { user })
+      .then(res => this.setState({ followers: [ ...this.state.followers, res.data]}))
+      .catch(err => this.setErrors(err.response.data))
+  }
+
+  onUnfollow = (user) => {
+    const { followers } = this.state;
+    const index = followers.map(entry => entry._id).indexOf(this.props.auth.user._id);
+
+    axios.delete(`/api/followers/${this.props.auth.user._id}`, { params: { user }})
+      .then(res => {
+        if(res.data.n === 1 && res.data.ok === 1)
+          this.setState(
+            { followers: [ 
+              ...followers.slice(0, index),
+              ...followers.slice(index + 1)
+            ]}
+          )
+      })
+      .catch(err => this.setErrors(err.response.data));
   }
 
   render() {
@@ -44,15 +102,29 @@ class Profile extends Component {
     const { user } = this.state;
     const { posts } = this.props.posts;
 
-    const actions = ((auth.user && user && auth.isAuthenticated) && auth.user._id === user._id) ?
-      ( 
-        <React.Fragment>
-          <Link to="/profile/settings" className="actions__settings"><i class="fas fa-cog"></i>Settings</Link>
-          <button className="actions__followers">Followers</button>
-          <button className="actions__following">Following</button>
-        </React.Fragment>
-      ) :
-      ( <button className="actions__follow">Follow</button> );
+    let actions;
+
+    if(auth.user && user && auth.isAuthenticated) {
+      // Make sure user is authenticated and user isn't null
+
+      if(auth.user._id === user._id) {
+        // User is on his profile
+        actions = ( 
+          <React.Fragment>
+            <Link to="/profile/settings" className="actions__settings"><i class="fas fa-cog"></i>Settings</Link>
+            <button className="actions__followers">Followers</button>
+            <button className="actions__following">Following</button>
+          </React.Fragment>
+        );
+      } else {
+        // Other users profile
+        // Check if user A is following user B
+        if(this.state.followers && this.state.followers.map(entry => entry._id).includes(auth.user._id))
+          actions = ( <button className="actions__follow--unfollow" onClick={() => this.onUnfollow(user._id)}>Unfollow</button> );
+        else
+          actions = ( <button className="actions__follow" onClick={() => this.onFollow(user._id)}>Follow</button> );
+      }
+    }
 
     return (
       <div className="profile">
@@ -82,6 +154,7 @@ class Profile extends Component {
             </ul>
           </div>
         </div>
+        <code><pre>{JSON.stringify(this.state, null, 2)}</pre></code>
       </div>
     )
   }
