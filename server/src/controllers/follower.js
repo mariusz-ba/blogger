@@ -44,12 +44,18 @@ export const createFollower = (req, res) => {
         throw 'Already following';
       }
 
-      return Follower.create({
-        follower: req.params.id,
-        following: req.body.user
-      })
+      return Follower.findOneAndUpdate(
+        {
+          follower: req.params.id,
+          following: req.body.user
+        },
+        {
+          follower: req.params.id,
+          following: req.body.user
+        }, { new: true, upsert: true, runValidators: true, setDefaultsOnInsert: true })
+      .populate('follower', ['_id', 'meta.firstname', 'meta.lastname', 'meta.avatar'])
     })
-    .then(follower => res.status(200).json(follower))
+    .then(pair => res.status(200).json(pair.follower))
     .catch(err => next(err));
 }
 
