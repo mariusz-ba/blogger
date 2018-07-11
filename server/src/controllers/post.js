@@ -1,12 +1,15 @@
 // Module dependencies
 import mongoose from 'mongoose';
 import Post from '../models/post';
+import { pick } from 'lodash';
 
 const ObjectId = mongoose.Types.ObjectId;
 
 export const getPosts = (req, res, next) => {
   // Get filter from req
-  Post.find({})
+  const filter = pick(req.query, ['author']);
+
+  Post.find(filter)
     .populate('author', 'username')
     .then(posts => res.status(200).json(posts))
     .catch(err => next(err));
