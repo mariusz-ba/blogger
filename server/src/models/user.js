@@ -11,7 +11,13 @@ const UserSchema = new Schema({
   password: { type: String, required: true },
   email: { type: String, required: true, index: { unique: true }},
   createdAt: { type: Number, default: Date.now },
-  updatedAt: { type: Number, default: Date.now }
+  updatedAt: { type: Number, default: Date.now },
+  meta: {
+    firstname: { type: String, default: '' },
+    lastname: { type: String, default: '' },
+    description: { type: String, default: '' },
+    avatar: { type: String, default: '/img/user-placeholder.jpg' }
+  }
 });
 
 
