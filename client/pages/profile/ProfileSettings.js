@@ -1,31 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { updateUser } from '../../actions/usersActions';
+
+import TabsView from './tabs/TabsView';
+import Details from './tabs/Details';
+import Password from './tabs/Password';
 
 // Editing users details (fullname, password, etc...)
 class ProfileSettings extends Component {
-  state = {
-    user: null,
-    errors: null
-  }
-
-  componentDidMount() {
-    const { _id } = this.props.auth.user;
-
-    axios.get(`/api/users/${_id}`)
-      .then(res => this.setState({ user: res.data }))
-      .catch(err => this.setState({ errors: err.response.data }))
-  }
-
   render() {
-    const { user } = this.state;
-
     return (
       <div>
         <code>
-          <pre>{user && JSON.stringify(user, null, 2)}</pre>
+          <pre>{JSON.stringify(this.state, null, 2)}</pre>
         </code>
+        <TabsView tabs={[
+          { title: 'Details', component: <Details userId={this.props.auth.user._id}/> },
+          { title: 'Password', component: <Password userId={this.props.auth.user._id}/> }
+        ]}/>
       </div>
     )
   }
@@ -33,4 +25,4 @@ class ProfileSettings extends Component {
 
 const mapStateToProps = ({ auth }) => ({ auth });
 
-export default connect(mapStateToProps, { updateUser })(ProfileSettings);
+export default connect(mapStateToProps)(ProfileSettings);
