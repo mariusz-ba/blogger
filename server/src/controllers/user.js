@@ -79,6 +79,9 @@ export const updateUser = (req, res, next) => {
           .then(user => res.status(200).json({ ok: 1 }))
           .catch(err => next(err));
       })
+    } else {
+      // Different passwords
+      res.status(400).json({ form: { old: 'Wrong password' }});
     }
 
   } else {
