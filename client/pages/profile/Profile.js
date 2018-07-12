@@ -11,8 +11,8 @@ import { prettify } from '../../utils/prettyDate';
 class Profile extends Component {
   state = {
     user: null,
-    followers: null,
-    following: null,
+    followers: [],
+    following: [],
     errors: null,
   }
 
@@ -99,7 +99,7 @@ class Profile extends Component {
 
   render() {
     const { auth } = this.props;
-    const { user } = this.state;
+    const { user, followers, following } = this.state;
     const { posts } = this.props.posts;
 
     let actions;
@@ -112,8 +112,8 @@ class Profile extends Component {
         actions = ( 
           <React.Fragment>
             <Link to="/profile/settings" className="actions__settings"><i class="fas fa-cog"></i>Settings</Link>
-            <button className="actions__followers">Followers</button>
-            <button className="actions__following">Following</button>
+            <button className="actions__followers">{followers.length} Followers</button>
+            <button className="actions__following">{following.length} Following</button>
           </React.Fragment>
         );
       } else {
@@ -140,7 +140,7 @@ class Profile extends Component {
 
               { posts &&
                 Object.values(posts).map(post => (
-                  <li className="posts__list-item">
+                  <li key={post._id} className="posts__list-item">
                     <Link to="#">
                       <img src={post.cover} alt="Post"/>
                       <div className="overlay"></div>
