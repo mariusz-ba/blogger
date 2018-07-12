@@ -36,36 +36,53 @@ export default class Details extends Component {
 
     return (
       <div className="tab-details">
-        <h1>Details edit</h1>
-        <code><pre>{JSON.stringify(this.state, null, 2)}</pre></code>
-        <form>
-          <input 
-            type="text" 
-            placeholder="firstname" 
-            name="firstname" 
-            value={firstname} 
-            onChange={(e) => this.changeStateProperty('firstname', e.target.value)}
-          />
-          <input 
-            type="text" 
-            placeholder="lastname" 
-            name="lastname" 
-            value={lastname} 
-            onChange={(e) => this.changeStateProperty('lastname', e.target.value)}
-          />
-          <input 
-            type="text" 
-            placeholder="avatar" 
-            name="avatar" 
-            value={avatar} 
-            onChange={(e) => this.changeStateProperty('avatar', e.target.value)}
-          />
-          <textarea 
-            name="description" 
-            onChange={(e) => this.changeStateProperty('description', e.target.value)}
-            value={description}>
-          </textarea>
-          <button type="submit" onClick={this.onSubmit}>Submit</button>
+        <h2>Edit details</h2>
+        <form className="form">
+          <div className="form-field">
+            <label htmlFor="input-firstname">Firstname</label>
+            <input 
+              id="input-firstname"
+              type="text" 
+              placeholder="firstname" 
+              name="firstname" 
+              value={firstname} 
+              onChange={(e) => this.changeStateProperty('firstname', e.target.value)}
+            />
+          </div>
+          <div className="form-field">
+            <label htmlFor="input-lastname">Lastname</label>
+            <input 
+              id="input-lastname"
+              type="text" 
+              placeholder="lastname" 
+              name="lastname" 
+              value={lastname} 
+              onChange={(e) => this.changeStateProperty('lastname', e.target.value)}
+            />
+          </div>
+          <div className="form-field">
+            <label htmlFor="input-avatar">Avatar</label>
+            <input 
+              id="input-avatar"
+              type="text" 
+              placeholder="avatar" 
+              name="avatar" 
+              value={avatar} 
+              onChange={(e) => this.changeStateProperty('avatar', e.target.value)}
+            />
+          </div>
+          <div className="form-field">
+            <label htmlFor="textarea-description">Description</label>
+            <textarea
+              rows="6"
+              name="textarea-description" 
+              onChange={(e) => this.changeStateProperty('description', e.target.value)}
+              value={description}>
+            </textarea>
+          </div>
+          <div className="form-field">
+            <button type="submit" onClick={this.onSubmit}>Update</button>
+          </div>
         </form>
       </div>
     )

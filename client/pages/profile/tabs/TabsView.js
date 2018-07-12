@@ -15,16 +15,21 @@ export default class TabsView extends Component {
     const { tabs } = this.props;
 
     return (
-      <div>
-        <ul>
-          {
-            tabs.map((tab, index) => (
-              <li key={index} onClick={() => this.setCurrent(index)}>{tab.title}</li>
-            ))
-          }
-        </ul>
-        <div>
-          {tabs[current].component}
+      <div className="container">
+        <div className="tabs-view">
+          <ul className="tabs-menu">
+            {
+              tabs.map((tab, index) => {
+                const currentClass = (index === current) ? 'tabs-menu__item--current' : '';
+                return (
+                  <li className={`tabs-menu__item ${currentClass}`} key={index} onClick={() => this.setCurrent(index)}>{tab.title}</li>
+                )
+              })
+            }
+          </ul>
+          <div className="tabs-content">
+            {tabs[current].component}
+          </div>
         </div>
       </div>
     )

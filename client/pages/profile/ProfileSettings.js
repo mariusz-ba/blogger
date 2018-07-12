@@ -11,12 +11,9 @@ class ProfileSettings extends Component {
   render() {
     return (
       <div>
-        <code>
-          <pre>{JSON.stringify(this.state, null, 2)}</pre>
-        </code>
         <TabsView tabs={[
           { title: 'Details', component: <Details userId={this.props.auth.user._id}/> },
-          { title: 'Password', component: <Password userId={this.props.auth.user._id}/> }
+          { title: 'Change password', component: <Password userId={this.props.auth.user._id}/> }
         ]}/>
       </div>
     )
