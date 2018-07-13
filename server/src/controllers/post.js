@@ -1,18 +1,37 @@
 // Module dependencies
 import mongoose from 'mongoose';
 import Post from '../models/post';
+import Follower from '../models/follower';
 import { pick } from 'lodash';
 
 const ObjectId = mongoose.Types.ObjectId;
 
 export const getPosts = (req, res, next) => {
   // Get filter from req
-  const filter = pick(req.query, ['author']);
+  //const filter = pick(req.query, ['author']);
 
-  Post.find(filter)
-    .populate('author', 'username')
-    .then(posts => res.status(200).json(posts))
-    .catch(err => next(err));
+  const filter = req.query.author ? { author: req.query.author } : {};
+
+  if(req.query.follower) {
+    // Order and limit
+    const modifiers = req.query.limit ? { limit: parseInt(req.query.limit) } : {};
+    
+    console.log('follower: ', req.query.follower);
+
+    // Get all people that filter.follower is following
+    Follower.find({ follower: req.query.follower })
+      .then(pair => pair.map(entry => entry.following))
+      .then(following => Post.find({
+        author: { $in: following }
+      }, ['title', 'createdAt', 'cover'], modifiers))
+      .then(posts => res.status(200).json(posts))
+      .catch(err => next(err));
+  } else {
+    Post.find(filter)
+      .populate('author', 'username')
+      .then(posts => res.status(200).json(posts))
+      .catch(err => next(err));
+  }
 }
 
 export const getPost = (req, res, next) => {
