@@ -4,13 +4,42 @@ import { connect } from 'react-redux';
 import { signOut } from '../../actions/authActions';
 
 class Navbar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      dropdownOpen: false
+    }
+  }
+
+  componentDidMount() {
+    document.addEventListener('click', this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleClickOutside);
+  }
+
+  handleClickOutside = e => {
+    if(this.dropdownNode && this.dropdownButton && !this.dropdownNode.contains(e.target) && !this.dropdownButton.contains(e.target)) {
+      this.setState({ dropdownOpen: false });
+    }
+  }
+
+  toggleDropdown = (e) => {
+    this.setState({ dropdownOpen: !this.state.dropdownOpen });
+  }
+
   onClickSignOut = (e) => {
     e.preventDefault();
     this.props.signOut();
+    this.setState({ dropdownOpen: false });
   }
 
   render() {
+    const dropdownStyle = this.state.dropdownOpen ? { display: 'block' } : { display: 'none' };
     const { isAuthenticated } = this.props.auth;
+    const { user } = this.props.auth;
     const { pathname } = this.props.location;
 
     if(['/signup', '/signin'].indexOf(pathname) > -1)
@@ -18,7 +47,26 @@ class Navbar extends Component {
 
     const navbarActions = isAuthenticated ? 
     (
-      <li className="navbar__menu-item"><Link to="/" onClick={this.onClickSignOut}>Sign out</Link></li>
+      <React.Fragment>
+        <li className="navbar__menu-item">
+          <div className="navbar__dropdown">
+            <button onClick={this.toggleDropdown} ref={(node) => {this.dropdownButton = node}}>
+              <img src={user.meta.avatar} alt="avatar"/>
+            </button>
+            <ul className="navbar__dropdown-menu" style={{...dropdownStyle}} ref={(node) => { this.dropdownNode = node; }}>
+              <li className="navbar__dropdown-item">
+                <Link to="/profile" onClick={this.toggleDropdown}>Profile</Link>
+              </li>
+              <li className="navbar__dropdown-item">
+                <Link to="/profile/settings" onClick={this.toggleDropdown}>Settings</Link>
+              </li>
+              <li className="navbar__dropdown-item">
+                <Link to="/" onClick={this.onClickSignOut}>Sign out</Link>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </React.Fragment>
     ) : 
     (
       <React.Fragment>
@@ -31,8 +79,16 @@ class Navbar extends Component {
       <div className="navbar">
         <div className="container">
           <nav className="navbar-nav">
+            <div className="navbar__branding">
+              <Link className="navbar-brand" to="/">
+                <img src="https://www.freeiconspng.com/uploads/facebook-text-logo-transparent-10.png" alt="Brand"/>
+              </Link>
+              <form>
+                <input name="search" type="text" placeholder="Search"/>
+                <button type="submit"><i class="fas fa-search"></i></button>
+              </form>
+            </div>
             <ul className="navbar__menu">
-              <li className="navbar__menu-item"><Link to="/">Home</Link></li>
               { navbarActions }
             </ul>
           </nav>
