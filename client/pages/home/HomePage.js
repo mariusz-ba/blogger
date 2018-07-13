@@ -19,7 +19,7 @@ class HomePage extends Component {
       .then(res => this.setState({ popularFollowing: res.data }))
       .catch(err => this.setState({ errors: err.response.data }));
 
-    axios.get('/api/posts', { params: { popular: true, limit: 3}})
+    axios.get('/api/posts', { params: { follower: user._id, other: true, popular: true, limit: 3}})
       .then(res => this.setState({ popularOther: res.data }))
       .catch(err => this.setState({ errors: err.response.data }));
 
@@ -34,13 +34,13 @@ class HomePage extends Component {
       <div className="container">
         <div className="home">
           <div className="home-posts">
-            <h2>Discover other people</h2>
+            <h3 className="home-posts__heading">Discover other people</h3>
 
             <ul className="posts__list">
               { popularOther &&
                 popularOther.map(post => (
                   <li key={post._id} className="posts__list-item">
-                    <Link to="#">
+                    <Link to={`/posts/${post._id}`}>
                       <img src={post.cover} alt="Post"/>
                       <div className="overlay"></div>
                       <small>{prettify(post.createdAt)}</small>
@@ -54,13 +54,13 @@ class HomePage extends Component {
           </div>
 
           <div className="home-posts">
-            <h2>Most popular posts of people you follow</h2>
+            <h3 className="home-posts__heading">Most popular posts of people you follow</h3>
 
             <ul className="posts__list">
               { popularFollowing &&
                 popularFollowing.map(post => (
                   <li key={post._id} className="posts__list-item">
-                    <Link to="#">
+                    <Link to={`/posts/${post._id}`}>
                       <img src={post.cover} alt="Post"/>
                       <div className="overlay"></div>
                       <small>{prettify(post.createdAt)}</small>
@@ -74,13 +74,13 @@ class HomePage extends Component {
           </div>
 
           <div className="home-posts">
-            <h2>Recent posts of people you follow</h2>
+            <h3 className="home-posts__heading">Recent posts of people you follow</h3>
 
             <ul className="posts__list">
               { posts &&
                 Object.values(posts).map(post => (
                   <li key={post._id} className="posts__list-item">
-                    <Link to="#">
+                    <Link to={`/posts/${post._id}`}>
                       <img src={post.cover} alt="Post"/>
                       <div className="overlay"></div>
                       <small>{prettify(post.createdAt)}</small>
