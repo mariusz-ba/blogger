@@ -14,16 +14,23 @@ export const getPosts = (req, res, next) => {
 
   if(req.query.follower) {
     // Order and limit
-    const modifiers = req.query.limit ? { limit: parseInt(req.query.limit) } : {};
-    
+    const limit = req.query.limit ? parseInt(req.query.limit) : 3;
+
     console.log('follower: ', req.query.follower);
+    console.log('limit: ', limit);
 
     // Get all people that filter.follower is following
     Follower.find({ follower: req.query.follower })
       .then(pair => pair.map(entry => entry.following))
-      .then(following => Post.find({
-        author: { $in: following }
-      }, ['title', 'createdAt', 'cover'], modifiers))
+      .then(following => {
+        const authors = req.query.other ? { $nin: [...following, req.user._id] } : { $in: following };
+        console.log(authors);
+        return Post.find({
+          author: authors
+        }, 
+        ['title', 'createdAt', 'cover'], 
+        { limit, sort: { createdAt: -1 }})
+      })
       .then(posts => res.status(200).json(posts))
       .catch(err => next(err));
   } else {
