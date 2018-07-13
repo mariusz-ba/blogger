@@ -154,7 +154,6 @@ class Profile extends Component {
             </ul>
           </div>
         </div>
-        <code><pre>{JSON.stringify(this.state, null, 2)}</pre></code>
       </div>
     )
   }
