@@ -34,7 +34,7 @@ class HomePage extends Component {
       <div className="container">
         <div className="home">
           <div className="home-posts">
-            <h3 className="home-posts__heading">Discover other people</h3>
+            <h3 className="home-posts__heading">Discover new articles</h3>
 
             <ul className="posts__list">
               { popularOther &&
@@ -54,7 +54,7 @@ class HomePage extends Component {
           </div>
 
           <div className="home-posts">
-            <h3 className="home-posts__heading">Most popular posts of people you follow</h3>
+            <h3 className="home-posts__heading">Most popular on your backyard</h3>
 
             <ul className="posts__list">
               { popularFollowing &&
@@ -74,7 +74,7 @@ class HomePage extends Component {
           </div>
 
           <div className="home-posts">
-            <h3 className="home-posts__heading">Recent posts of people you follow</h3>
+            <h3 className="home-posts__heading">Recent articles</h3>
 
             <ul className="posts__list">
               { posts &&
