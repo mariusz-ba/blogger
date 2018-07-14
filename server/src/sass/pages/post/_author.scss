@@ -10,4 +10,18 @@
   .author__description {
     line-height: 1.5em;
   }
+
+  .author__description--center {
+    text-align: center;
+
+    a {
+      text-decoration: none;
+      color: #1a1a1a;
+      transition: color linear .2s;
+
+      &:hover {
+        color: #00a0eb;
+      }
+    }
+  }
 }

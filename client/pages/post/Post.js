@@ -3,16 +3,29 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { fetchPost } from '../../actions/postsActions';
 import { prettify } from '../../utils/prettyDate';
+import axios from 'axios';
 
 class Post extends Component {
+  state = {
+    recentPosts: [],
+    errors: null
+  }
+
   componentDidMount() {
     // Fetch this post
-    this.props.fetchPost(this.props.match.params.id);
+    this.props.fetchPost(this.props.match.params.id)
+      .then((action) => {
+        // Get authors id and fetch his recent posts
+        axios.get(`/api/posts`, { params: { author: action.payload.author._id, limit: 3 }})
+          .then(res => this.setState({ recentPosts: res.data }))
+          .catch(err => this.setState({ errors: err.response.data }));
+      })
   }
 
   render() {
     const { id } = this.props.match.params;
     const { isFetching, posts } = this.props.posts;
+    const { recentPosts } = this.state;
 
     if(isFetching) {
       // render loading screen
@@ -21,7 +34,7 @@ class Post extends Component {
 
     const post = posts ? posts[id] : null;
 
-    if(!post) {
+    if(!post || !post.author || !post.author.meta) {
       // after fetching post doesn't exist
       return (<h1>404. Not found</h1>);
     }
@@ -41,43 +54,30 @@ class Post extends Component {
           </div>
           <div className="author">
             <h5 className="heading-lined">
-              <span>ABOUT ME</span>
+              <span>ABOUT AUTHOR</span>
             </h5>
-            <img className="author__image" src="https://source.unsplash.com/random" alt="Author"/>
-            <p className="author__description"><small>Praesent in varius orci. Vestibulum purus mi, pharetra at interdum ut, volutpat sit amet ante. Quisque ultricies enim ac felis aliquam egestas.</small></p>
+            <img className="author__image" src={post.author.meta.avatar} alt="Author"/>
+            <p className="author__description author__description--center"><strong><Link to={`/profile/${post.author._id}`}>{`${post.author.meta.firstname} ${post.author.meta.lastname}`}</Link></strong></p>
+            <p className="author__description"><small>{post.author.meta.description}</small></p>
           </div>
           <div className="recent">
             <h5 className="heading-lined">
               <span>RECENT POSTS</span>
             </h5>
             <ul className="recent-list">
-              <li className="recent-list__item">
-                <Link to="/">
-                  <div className="recent-item">
-                    <img className="recent-item__cover" src="https://source.unsplash.com/random" alt="Cover"/>
-                    <h5 className="recent-item__heading">Mauris sollicitudin ex dictum rutrum gravida.</h5>
-                    <p className="recent-item__subheading"><small>23-06-2018</small></p>
-                  </div>
-                </Link>
-              </li>
-              <li className="recent-list__item">
-                <Link to="/">
-                  <div className="recent-item">
-                  <img className="recent-item__cover" src="https://source.unsplash.com/random" alt="Cover"/>
-                    <h5 className="recent-item__heading">Mauris sollicitudin ex dictum rutrum gravida.</h5>
-                    <p className="recent-item__subheading"><small>23-06-2018</small></p>
-                  </div>
-                </Link>
-              </li>
-              <li className="recent-list__item">
-                <Link to="/">
-                  <div className="recent-item">
-                  <img className="recent-item__cover" src="https://source.unsplash.com/random" alt="Cover"/>
-                    <h5 className="recent-item__heading">Mauris sollicitudin ex dictum rutrum gravida.</h5>
-                    <p className="recent-item__subheading"><small>23-06-2018</small></p>
-                  </div>
-                </Link>
-              </li>
+              { recentPosts &&
+                recentPosts.map(post => (
+                  <li className="recent-list__item">
+                    <Link to={`/posts/${post._id}`}>
+                      <div className="recent-item">
+                        <img className="recent-item__cover" src={post.cover} alt="Cover"/>
+                        <h5 className="recent-item__heading">{post.title}</h5>
+                        <p className="recent-item__subheading"><small>{prettify(post.createdAt)}</small></p>
+                      </div>
+                    </Link>
+                  </li>
+                ))
+              }
             </ul>
           </div>
           <div className="advert">
