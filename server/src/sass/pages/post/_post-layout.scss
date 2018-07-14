@@ -3,17 +3,10 @@
   grid-row-gap: 20px;
   grid-column-gap: 30px;
   grid-template-columns: 3fr 1fr;
-  grid-template-areas: "post author"
-                       "post recent"
-                       "post advert";
 }
 
 @media screen and (max-width: 768px) {
   .post-layout {
     grid-template-columns: 1fr;
-    grid-template-areas: "post"
-                         "advert"
-                         "author"
-                         "recent";
   }
 }

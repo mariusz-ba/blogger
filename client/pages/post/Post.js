@@ -42,46 +42,50 @@ class Post extends Component {
     return (
       <div className="container">
         <div className="post-layout">
-          <div className="post">
-            <div className="post__header">
-              <img className="post__cover" src={post.cover} alt="Cover"/>
+          <div>
+            <div className="post">
+              <div className="post__header">
+                <img className="post__cover" src={post.cover} alt="Cover"/>
+              </div>
+              <div className="post__content">
+                <h5 className="post__subheading">{prettify(post.createdAt)}</h5>
+                <h2 className="post__heading">{post.title}</h2>
+                <div className="post__content-wrapper" dangerouslySetInnerHTML={{ __html: post.content }}></div>
+              </div>
             </div>
-            <div className="post__content">
-              <h5 className="post__subheading">{prettify(post.createdAt)}</h5>
-              <h2 className="post__heading">{post.title}</h2>
-              <div className="post__content-wrapper" dangerouslySetInnerHTML={{ __html: post.content }}></div>
+          </div>
+          <div>
+            <div className="author">
+              <h5 className="heading-lined">
+                <span>ABOUT AUTHOR</span>
+              </h5>
+              <img className="author__image" src={post.author.meta.avatar} alt="Author"/>
+              <p className="author__description author__description--center"><strong><Link to={`/profile/${post.author._id}`}>{`${post.author.meta.firstname} ${post.author.meta.lastname}`}</Link></strong></p>
+              <p className="author__description"><small>{post.author.meta.description}</small></p>
             </div>
-          </div>
-          <div className="author">
-            <h5 className="heading-lined">
-              <span>ABOUT AUTHOR</span>
-            </h5>
-            <img className="author__image" src={post.author.meta.avatar} alt="Author"/>
-            <p className="author__description author__description--center"><strong><Link to={`/profile/${post.author._id}`}>{`${post.author.meta.firstname} ${post.author.meta.lastname}`}</Link></strong></p>
-            <p className="author__description"><small>{post.author.meta.description}</small></p>
-          </div>
-          <div className="recent">
-            <h5 className="heading-lined">
-              <span>RECENT POSTS</span>
-            </h5>
-            <ul className="recent-list">
-              { recentPosts &&
-                recentPosts.map(post => (
-                  <li className="recent-list__item">
-                    <Link to={`/posts/${post._id}`}>
-                      <div className="recent-item">
-                        <img className="recent-item__cover" src={post.cover} alt="Cover"/>
-                        <h5 className="recent-item__heading">{post.title}</h5>
-                        <p className="recent-item__subheading"><small>{prettify(post.createdAt)}</small></p>
-                      </div>
-                    </Link>
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
-          <div className="advert">
-            <img className="advert__image" src="https://15xomi2v386wytrb8nbsoq34-wpengine.netdna-ssl.com/wp-content/uploads/2016/02/300x200-Placeholder-1.png" alt="Advertisement"/>
+            <div className="recent">
+              <h5 className="heading-lined">
+                <span>RECENT POSTS</span>
+              </h5>
+              <ul className="recent-list">
+                { recentPosts &&
+                  recentPosts.map(post => (
+                    <li className="recent-list__item">
+                      <Link to={`/posts/${post._id}`}>
+                        <div className="recent-item">
+                          <img className="recent-item__cover" src={post.cover} alt="Cover"/>
+                          <h5 className="recent-item__heading">{post.title}</h5>
+                          <p className="recent-item__subheading"><small>{prettify(post.createdAt)}</small></p>
+                        </div>
+                      </Link>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+            <div className="advert">
+              <img className="advert__image" src="https://15xomi2v386wytrb8nbsoq34-wpengine.netdna-ssl.com/wp-content/uploads/2016/02/300x200-Placeholder-1.png" alt="Advertisement"/>
+            </div>
           </div>
         </div>
       </div>
