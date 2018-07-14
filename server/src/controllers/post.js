@@ -34,10 +34,16 @@ export const getPosts = (req, res, next) => {
       .then(posts => res.status(200).json(posts))
       .catch(err => next(err));
   } else {
-    Post.find(filter)
-      .populate('author', 'username')
-      .then(posts => res.status(200).json(posts))
-      .catch(err => next(err));
+    if(req.query.limit)
+      Post.find(filter).sort({ createdAt: -1 }).limit(parseInt(req.query.limit))
+        .populate('author', 'username')
+        .then(posts => res.status(200).json(posts))
+        .catch(err => next(err));
+    else
+      Post.find(filter)
+        .populate('author', 'username')
+        .then(posts => res.status(200).json(posts))
+        .catch(err => next(err));
   }
 }
 
@@ -51,7 +57,7 @@ export const getPost = (req, res, next) => {
   }
 
   Post.findOne({ _id: id })
-    .populate('author', 'username')
+    .populate('author', ['username', 'meta.firstname', 'meta.lastname', 'meta.avatar', 'meta.description'])
     .then(post => res.status(200).json(post))
     .catch(err => next(err));
 }
