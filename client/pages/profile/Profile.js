@@ -141,7 +141,7 @@ class Profile extends Component {
               { posts &&
                 Object.values(posts).map(post => (
                   <li key={post._id} className="posts__list-item">
-                    <Link to="#">
+                    <Link to={`/posts/${post._id}`}>
                       <img src={post.cover} alt="Post"/>
                       <div className="overlay"></div>
                       <small>{prettify(post.createdAt)}</small>
