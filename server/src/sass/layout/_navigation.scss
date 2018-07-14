@@ -115,6 +115,19 @@
                 }
               }
             }
+
+            .navbar__dropdown-item--heading {
+              font-size: 0.875em;
+              padding: 5px;
+              font-weight: bold;
+              color: lighten(#1a1a1a, 50%);
+            }
+
+            .navbar__dropdown-item--spacer {
+              padding-top: 5px;
+              margin-bottom: 5px;
+              border-bottom: 1px solid rgb(224, 226, 228);
+            }
           }
         }
       }

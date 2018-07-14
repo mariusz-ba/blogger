@@ -54,12 +54,18 @@ class Navbar extends Component {
               <img src={user.meta.avatar} alt="avatar"/>
             </button>
             <ul className="navbar__dropdown-menu" style={{...dropdownStyle}} ref={(node) => { this.dropdownNode = node; }}>
+              <li className="navbar__dropdown-item navbar__dropdown-item--heading">Actions</li>
+              <li className="navbar__dropdown-item">
+                <Link to="/posts/new" onClick={this.toggleDropdown}>New post</Link>
+              </li>
+              <li className="navbar__dropdown-item navbar__dropdown-item--heading">Profile</li>
               <li className="navbar__dropdown-item">
                 <Link to="/profile" onClick={this.toggleDropdown}>Profile</Link>
               </li>
               <li className="navbar__dropdown-item">
                 <Link to="/profile/settings" onClick={this.toggleDropdown}>Settings</Link>
               </li>
+              <li className="navbar__dropdown-item navbar__dropdown-item--spacer"></li>
               <li className="navbar__dropdown-item">
                 <Link to="/" onClick={this.onClickSignOut}>Sign out</Link>
               </li>
