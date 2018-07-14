@@ -52,15 +52,41 @@ class PostEdit extends Component {
 
     return (
       <div>
-        <form>
-          <label htmlFor="input-title">Title</label>
-          <input name="title" value={title} onChange={this.changeTitle} id="input-title"/>
-          <label htmlFor="input-cover">Cover</label>
-          <input name="cover" value={cover} onChange={this.changeCover} id="input-cover"/>
-          <label htmlFor="input-content">Content</label>
-          <input name="content" value={content} onChange={this.changeContent} id="input-content"/>
-          <button type="submit" onClick={this.submit}>Publish</button>
-        </form>
+        <div className="container">
+          <div className="post-editor">
+            <h2>Edit article</h2>
+            <form class="form">
+              <div className="form-field">
+                <label htmlFor="input-title">Title</label>
+                <input 
+                  name="title" 
+                  value={title} 
+                  onChange={this.changeTitle} 
+                  id="input-title"/>
+              </div>
+              <div className="form-field">
+                <label htmlFor="input-cover">Cover</label>
+                <input 
+                  name="cover" 
+                  value={cover} 
+                  onChange={this.changeCover} 
+                  id="input-cover"/>
+              </div>
+              <div className="form-field">
+                <label htmlFor="input-content">Content <small>(HTML markup)</small></label>
+                <textarea
+                  rows="10" 
+                  name="content" 
+                  value={content} 
+                  onChange={this.changeContent} 
+                  id="input-content"></textarea>
+              </div>
+              <div className="form-field">
+                <button type="submit" onClick={this.submit}>Publish</button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     )
   }
