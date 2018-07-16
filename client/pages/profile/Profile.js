@@ -8,11 +8,16 @@ import axios from 'axios';
 import { fetchPosts } from '../../actions/postsActions';
 import { prettify } from '../../utils/prettyDate';
 
+import UsersList from '../../components/users-list/UsersList';
+import Modal from '../../components/modal/Modal';
+
 class Profile extends Component {
   state = {
     user: null,
     followers: [],
     following: [],
+    showFollowers: false,
+    showFollowing: false,
     errors: null,
   }
 
@@ -101,6 +106,7 @@ class Profile extends Component {
     const { auth } = this.props;
     const { user, followers, following } = this.state;
     const { posts } = this.props.posts;
+    const { showFollowers, showFollowing } = this.state;
 
     let actions;
 
@@ -112,8 +118,8 @@ class Profile extends Component {
         actions = ( 
           <React.Fragment>
             <Link to="/profile/settings" className="actions__settings"><i class="fas fa-cog"></i>Settings</Link>
-            <button className="actions__followers">{followers.length} Followers</button>
-            <button className="actions__following">{following.length} Following</button>
+            <button className="actions__followers" onClick={() => this.setState({ showFollowers: true })}>{followers.length} Followers</button>
+            <button className="actions__following" onClick={() => this.setState({ showFollowing: true })}>{following.length} Following</button>
           </React.Fragment>
         );
       } else {
@@ -134,6 +140,9 @@ class Profile extends Component {
             <h2 className="header__name">{user && `${user.meta.firstname} ${user.meta.lastname}`}</h2>
             <p className="header__description">{ user && user.meta.description }</p>
             <div className="actions">{ actions }</div>
+
+            { showFollowers && <Modal onClose={() => this.setState({ showFollowers: false })}><UsersList users={followers}/></Modal> }
+            { showFollowing && <Modal onClose={() => this.setState({ showFollowing: false })}><UsersList users={following}/></Modal> }
           </header>
           <div className="posts">
             <ul className="posts__list">
