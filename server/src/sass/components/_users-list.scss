@@ -8,10 +8,11 @@
     padding: 5px;
 
     .users-list__avatar {
-      max-height: 100%;
-      max-width: 100%;
+      height: 38px;
+      width: 38px;
       object-fit: cover;
       border-radius: 50%;
+      box-shadow: 0 0 1px 0px white inset, 0 0 1px 0px white;
     }
 
     .users-list__name-container {
