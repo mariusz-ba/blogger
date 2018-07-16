@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import GreetingsPage from './GreetingsPage';
+import LandingPage from './LandingPage';
 import HomePage from './HomePage';
 
 class Home extends Component {
@@ -11,7 +11,7 @@ class Home extends Component {
     // Check if user is signed in and render appropiate page
     if(isAuthenticated)
       return <HomePage/>;
-    return <GreetingsPage/>;
+    return <LandingPage/>;
   }
 }
 
