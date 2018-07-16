@@ -1,0 +1,68 @@
+.users-list {
+  list-style-type: none;
+
+  .users-list__item {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    padding: 5px;
+
+    .users-list__avatar {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .users-list__name-container {
+      padding: 0 20px;
+      flex-grow: 1;
+
+      span {
+        display: block;
+        text-align: left;
+      }
+
+      .fullname {
+        font-weight: 600;
+      }
+
+      .username {
+        font-size:0.875em;
+        font-weight: 300;
+        color: lighten(#1a1a1a, 50%);
+
+        &::before {
+          content: '@';
+        }
+      }
+    }
+
+    button {
+      border: 0;
+      outline: 0;
+      height: 30px;
+      border-radius: 3px;
+      padding: 5px 15px;
+
+      background: #00a0eb;
+      color: #fff;
+      font-weight: bold;
+
+      &:hover {
+        cursor: pointer;
+        background: lighten(#00a0eb, 20%);
+      }
+
+      transition: background linear .2s;
+    }
+
+    .button--unfollow {
+      background: rgba(0, 0, 0, .125);
+
+      &:hover {
+        background: l#00a0eb;
+      }
+    }
+  }
+}
