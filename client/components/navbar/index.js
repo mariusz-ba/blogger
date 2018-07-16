@@ -60,6 +60,9 @@ class Navbar extends Component {
     const { user } = this.props.auth;
     const { pathname } = this.props.location;
 
+    if(!isAuthenticated)
+      return null;
+
     if(['/signup', '/signin'].indexOf(pathname) > -1)
       return null;
 
