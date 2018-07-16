@@ -15,12 +15,12 @@ export const getPosts = (req, res, next) => {
   const search = req.query.search;
 
   if(search) {
-    const regex = new RegExp(`.*${search}.*`);
+    const regex = new RegExp(`.*${search}.*`, 'i');
 
     Post.find({
       $or: [
-        { title: search },
-        { content: search },
+        { title: regex },
+        { content: regex },
       ]
     })
       .then(posts => res.status(200).json(posts))

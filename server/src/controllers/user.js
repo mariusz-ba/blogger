@@ -10,7 +10,7 @@ const ObjectId = mongoose.Types.ObjectId;
 export const getUsers = (req, res, next) => {
   // Get filter from req
   const search = req.query.search;
-  const regex = new RegExp(`.*${search}.*`);
+  const regex = new RegExp(`.*${search}.*`, 'i');
 
   if(search) {
     User.find({
