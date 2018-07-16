@@ -18,12 +18,21 @@
   .modal-box {
     position: absolute;
     top: 40px;
-    bottom: 40px;
-    left: 10%;
-    right: 10%;
+    left: 50%;
+    min-width: 300px;
+    max-width: 500px;
+    transform: translate3d(-50%, 0, 0);
     border-radius: 3px;
     background: #fff;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
-    padding: 20px 5px;
+    
+    .modal-header {
+      padding: 20px 5px;
+      border-bottom: 1px solid rgba(0, 0, 0, .125);
+    }
+    
+    .modal-content {
+      padding: 20px 5px;
+    }
   }
 }

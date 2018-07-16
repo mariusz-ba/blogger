@@ -141,8 +141,22 @@ class Profile extends Component {
             <p className="header__description">{ user && user.meta.description }</p>
             <div className="actions">{ actions }</div>
 
-            { showFollowers && <Modal onClose={() => this.setState({ showFollowers: false })}><UsersList users={followers}/></Modal> }
-            { showFollowing && <Modal onClose={() => this.setState({ showFollowing: false })}><UsersList users={following}/></Modal> }
+            { showFollowers &&
+              <Modal onClose={() => this.setState({ showFollowers: false })}>
+                <div className="modal-header"><h3>Followers</h3></div>
+                <div className="modal-content">
+                  <UsersList users={followers}/>
+                </div>
+              </Modal>
+            }
+            { showFollowing &&
+              <Modal onClose={() => this.setState({ showFollowing: false })}>
+                <div className="modal-header"><h3>Following</h3></div>
+                <div className="modal-content">
+                  <UsersList users={following}/>
+                </div>
+              </Modal>
+            }
           </header>
           <div className="posts">
             <ul className="posts__list">
