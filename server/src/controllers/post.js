@@ -12,6 +12,23 @@ export const getPosts = (req, res, next) => {
 
   const filter = req.query.author ? { author: req.query.author } : {};
 
+  const search = req.query.search;
+
+  if(search) {
+    const regex = new RegExp(`.*${search}.*`);
+
+    Post.find({
+      $or: [
+        { title: search },
+        { content: search },
+      ]
+    })
+      .then(posts => res.status(200).json(posts))
+      .catch(err => next(err));
+
+    return;
+  }
+
   if(req.query.follower) {
     // Order and limit
     const limit = req.query.limit ? parseInt(req.query.limit) : 3;

@@ -9,9 +9,25 @@ const ObjectId = mongoose.Types.ObjectId;
 
 export const getUsers = (req, res, next) => {
   // Get filter from req
-  User.find({}, { password: false })
-    .then(user => res.status(200).json(user))
-    .catch(err => next(err));
+  const search = req.query.search;
+  const regex = new RegExp(`.*${search}.*`);
+
+  if(search) {
+    User.find({
+      $or: [
+        { username: regex },
+        { 'meta.firstname': regex },
+        { 'meta.lastname': regex },
+        { 'meta.description': regex }
+      ]
+    }, { password: false })
+      .then(users => res.status(200).json(users))
+      .catch(err => next(err));
+  } else {
+    User.find({}, { password: false })
+      .then(users => res.status(200).json(users))
+      .catch(err => next(err));
+  }
 }
 
 export const getUser = (req, res, next) => {
