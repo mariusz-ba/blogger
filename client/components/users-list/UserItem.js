@@ -13,7 +13,10 @@ export default class UserItem extends Component {
           <span class="fullname">{fullName}</span>
           <span class="username">{username}</span>
         </div>
-        <button onClicked={onFollowClicked}>Follow</button>
+        {
+          // Currently not available
+          // <button onClicked={onFollowClicked}>Follow</button>
+        }
       </li>
     )
   }
