@@ -11,6 +11,15 @@ import Posts from './Posts';
 
 class Search extends Component {
   componentDidMount = () => {
+    this.fetchSearchResults();
+  }
+
+  componentDidUpdate = (prevProps) => {
+    if(prevProps.location.search !== this.props.location.search)
+      this.fetchSearchResults();
+  }
+
+  fetchSearchResults = () => {
     // Get route params and get users list and posts
     const { query } = qs.parse(this.props.location.search.slice(1));
 
