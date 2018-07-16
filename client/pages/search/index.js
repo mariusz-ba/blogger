@@ -22,16 +22,14 @@ class Search extends Component {
     const { users, posts } = this.props;
 
     return (
-      <div>
-        <code><pre>{JSON.stringify({ users, posts })}</pre></code>
-        <h1>Searching page</h1>
-        <div>
+      <div className="container">
+        <div className="search-results">
           <h2>Searching results</h2>
-          <div>
+          <div className="users">
             <h3>Users</h3>
             <Users users={users.users ? Object.values(users.users) : []}/>
           </div>
-          <div>
+          <div className="posts">
             <h3>Posts</h3>
             <ul>
               { posts.posts && 

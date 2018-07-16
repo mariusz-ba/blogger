@@ -1,0 +1,64 @@
+.search-results {
+  background: #fff;
+  box-shadow: 0 0 3px rgba(0, 0, 0, .125);
+
+  h2 {
+    padding: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+  }
+
+  .users {
+    h3 { margin-top: 1em; padding: 10px; }
+
+    .search-users {
+      list-style-type: none;
+
+      .search-users__item {
+        padding: 10px;
+        display: flex;
+
+        border-top: 1px solid rgba(0, 0, 0, .1);
+
+        &:last-of-type {
+          border-bottom: 1px solid rgba(0, 0, 0, .1);
+        }
+        
+        img {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+        }
+
+        .user-data {
+          margin-left: 15px;
+          
+          a { 
+            transition: color linear .2s;
+            display: block;
+            font-weight: bold;
+            text-decoration: none;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+
+            &:hover {
+              color: lighten(#1a1a1a, 20%);
+            }
+          }
+
+          .user-description {
+            font-size: 0.875em;
+            color: lighten(#1a1a1a, 30%);
+          }
+        }
+      }
+    }
+  }
+
+  .posts {
+    h3 { margin-top: 1em; padding: 10px; }
+
+    .search-posts {
+      list-style-type: none;
+    }
+  }
+}
