@@ -8,7 +8,8 @@ class Navbar extends Component {
     super(props);
 
     this.state = {
-      dropdownOpen: false
+      dropdownOpen: false,
+      search: ''
     }
   }
 
@@ -26,6 +27,13 @@ class Navbar extends Component {
     }
   }
 
+  inputKeyPress = e => {
+    if(e.key === 'Enter') {
+      // Redirect to search page
+      this.props.history.push(`/search?query=${e.target.value}`)
+    }
+  }
+
   toggleDropdown = (e) => {
     this.setState({ dropdownOpen: !this.state.dropdownOpen });
   }
@@ -34,6 +42,16 @@ class Navbar extends Component {
     e.preventDefault();
     this.props.signOut();
     this.setState({ dropdownOpen: false });
+  }
+
+  onChangeSearch = e => {
+    this.setState({ search: e.target.value });
+  }
+
+  onSearch = e => {
+    e.preventDefault();
+    // Redirect to search page
+    this.props.history.push(`/search?query=${this.state.search}`)
   }
 
   render() {
@@ -90,8 +108,8 @@ class Navbar extends Component {
                 <img src="https://www.freeiconspng.com/uploads/facebook-text-logo-transparent-10.png" alt="Brand"/>
               </Link>
               <form>
-                <input name="search" type="text" placeholder="Search"/>
-                <button type="submit"><i class="fas fa-search"></i></button>
+                <input name="search" type="text" placeholder="Search" onKeyPress={this.inputKeyPress} onChange={this.onChangeSearch} value={this.state.search}/>
+                <button type="submit" onClick={this.onSearch}><i class="fas fa-search"></i></button>
               </form>
             </div>
             <ul className="navbar__menu">

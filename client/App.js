@@ -11,6 +11,7 @@ import Home from './pages/home';
 import Navbar from './components/navbar';
 import Posts from './pages/post';
 import Profile from './pages/profile';
+import Search from './pages/search';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
 
@@ -24,6 +25,7 @@ export default () => (
         <Route path="/signup" component={Signup}/>
         <AuthRequiredRoute path="/profile" component={Profile}/>
         <AuthRequiredRoute path="/posts" component={Posts}/>
+        <AuthRequiredRoute path="/search" component={Search}/>
       </Switch>
     </div>
   </Router>
