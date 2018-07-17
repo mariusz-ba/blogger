@@ -1,5 +1,6 @@
 // Base
 @import 'base/_reset';
+@import 'base/_typography';
 
 // Components
 @import 'components/_form';
@@ -14,8 +15,8 @@
 // Pages
 @import 'pages/_module';
 
+
 body {
-  font-family: sans-serif;
   color: #1a1a1a;
   background: rgb(245, 247, 250);
 }
