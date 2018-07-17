@@ -113,6 +113,25 @@ class Navbar extends Component {
             </ul>
           </nav>
         </div>
+        <input className="navbar__hamburger" type="checkbox"/>
+        <div className="navbar-mobile">
+          <nav className="navbar-mobile-nav">
+            <ul className="navbar-mobile__menu">
+              <li className="navbar-mobile__menu-item">
+                <Link to="/posts/new">New post</Link>
+              </li>
+              <li className="navbar-mobile__menu-item">
+                <Link to="/profile">Profile</Link>
+              </li>
+              <li className="navbar-mobile__menu-item">
+                <Link to="/profile/settings">Settings</Link>
+              </li>
+              <li className="navbar-mobile__menu-item">
+                <Link to="/" onClick={this.onClickSignOut}>Sign out</Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
     )
   }
