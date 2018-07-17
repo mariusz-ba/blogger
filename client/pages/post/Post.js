@@ -11,7 +11,16 @@ class Post extends Component {
     errors: null
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
+    this.updatePostData();
+  }
+
+  componentDidUpdate = (prevProps) => {
+    if(prevProps.location.pathname !== this.props.location.pathname)
+      this.updatePostData();
+  }
+  
+  updatePostData = () => {
     // Fetch this post
     this.props.fetchPost(this.props.match.params.id)
       .then((action) => {

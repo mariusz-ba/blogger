@@ -23,6 +23,7 @@
         grid-column-gap: 10px;
         grid-template-areas: "cover heading"
                              "cover subheading";
+        grid-template-columns: max-content auto;
         height: 84px;
         padding: 10px 0;
         padding-right: 5px;
