@@ -66,8 +66,7 @@ class Navbar extends Component {
     if(['/signup', '/signin'].indexOf(pathname) > -1)
       return null;
 
-    const navbarActions = isAuthenticated ? 
-    (
+    const navbarActions = (
       <React.Fragment>
         <li className="navbar__menu-item">
           <div className="navbar__dropdown">
@@ -93,12 +92,6 @@ class Navbar extends Component {
             </ul>
           </div>
         </li>
-      </React.Fragment>
-    ) : 
-    (
-      <React.Fragment>
-        <li className="navbar__menu-item"><Link to="/signin">Sign in</Link></li>
-        <li className="navbar__menu-item"><Link to="/signup">Sign up</Link></li>
       </React.Fragment>
     )
 
