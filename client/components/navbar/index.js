@@ -8,6 +8,7 @@ class Navbar extends Component {
     super(props);
 
     this.state = {
+      mobileOpen: false,
       dropdownOpen: false,
       search: ''
     }
@@ -25,6 +26,10 @@ class Navbar extends Component {
     if(this.dropdownNode && this.dropdownButton && !this.dropdownNode.contains(e.target) && !this.dropdownButton.contains(e.target)) {
       this.setState({ dropdownOpen: false });
     }
+  }
+
+  toggleMobileMenu = e => {
+    this.setState({ mobileOpen: !this.state.mobileOpen })
   }
 
   inputKeyPress = e => {
@@ -113,10 +118,10 @@ class Navbar extends Component {
             </ul>
           </nav>
         </div>
-        <input className="navbar__hamburger" type="checkbox"/>
+        <input className="navbar__hamburger" type="checkbox" onClick={this.toggleMobileMenu} checked={this.state.mobileOpen}/>
         <div className="navbar-mobile">
           <nav className="navbar-mobile-nav">
-            <ul className="navbar-mobile__menu">
+            <ul className="navbar-mobile__menu" onClick={this.toggleMobileMenu}>
               <li className="navbar-mobile__menu-item">
                 <Link to="/posts/new">New post</Link>
               </li>
