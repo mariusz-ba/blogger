@@ -110,8 +110,9 @@
       .navbar-brand {
         max-height: 32px;
         margin-right: 20px;
-
+        
         img {
+          padding: 3px 0;
           max-height: 32px;
           object-fit: cover;
         }

@@ -106,7 +106,7 @@ class Navbar extends Component {
           <nav className="navbar-nav">
             <div className="navbar__branding">
               <Link className="navbar-brand" to="/">
-                <img src="https://www.freeiconspng.com/uploads/facebook-text-logo-transparent-10.png" alt="Brand"/>
+                <img src="/img/logo.png" alt="Brand"/>
               </Link>
               <form>
                 <input name="search" type="text" placeholder="Search" onKeyPress={this.inputKeyPress} onChange={this.onChangeSearch} value={this.state.search}/>
