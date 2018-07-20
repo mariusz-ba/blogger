@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { fetchPost } from '../../actions/postsActions';
+import { fetchComments, createComment } from '../../actions/commentsActions';
 import { prettify } from '../../utils/prettyDate';
 import axios from 'axios';
 
 class Post extends Component {
   state = {
+    commentEditor: '',
     recentPosts: [],
     errors: null
   }
@@ -29,12 +31,29 @@ class Post extends Component {
           .then(res => this.setState({ recentPosts: res.data }))
           .catch(err => this.setState({ errors: err.response.data }));
       })
+    this.props.fetchComments({ post: this.props.match.params.id });
+  }
+
+  commentEditorChange = e => {
+    this.setState({ commentEditor: e.target.value });
+  }
+
+  submitComment = e => {
+    e.preventDefault();
+    this.props.createComment({
+      content: this.state.commentEditor,
+      reference: {
+        type: 'post',
+        id: this.props.match.params.id
+      }
+    })
   }
 
   render() {
     const { id } = this.props.match.params;
     const { isFetching, posts } = this.props.posts;
-    const { recentPosts } = this.state;
+    const { comments } = this.props.comments;
+    const { recentPosts, commentEditor } = this.state;;
 
     if(isFetching) {
       // render loading screen
@@ -62,6 +81,13 @@ class Post extends Component {
                 <div className="post__content-wrapper" dangerouslySetInnerHTML={{ __html: post.content }}></div>
               </div>
             </div>
+            { 
+              Object.values(comments).map(comment => (
+                <div key={comment._id}>{comment.content}</div>
+              ))
+            }
+            <input type="text" value={commentEditor} onChange={this.commentEditorChange}/>
+            <button onClick={this.submitComment}>Add comment</button>
           </div>
           <div>
             <div className="author">
@@ -102,6 +128,6 @@ class Post extends Component {
   }
 }
 
-const mapStateToProps = ({ posts }) => ({ posts });
+const mapStateToProps = ({ posts, comments }) => ({ posts, comments });
 
-export default withRouter(connect(mapStateToProps, { fetchPost })(Post));
+export default withRouter(connect(mapStateToProps, { fetchPost, fetchComments, createComment })(Post));
