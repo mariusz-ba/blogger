@@ -19,6 +19,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/blogger');
 
 // Routes
 import auth from './src/routes/auth';
+import comments from './src/routes/comment';
 import followers from './src/routes/follower';
 import users from './src/routes/user';
 import posts from './src/routes/post';
@@ -48,6 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // API
 app.use('/api/auth', auth);
+app.use('/api/comments', comments);
 app.use('/api/followers', followers);
 app.use('/api/users', users);
 app.use('/api/posts', posts);
