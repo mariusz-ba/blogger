@@ -73,7 +73,7 @@ export const deletePost = (id) => {
   return dispatch => {
     return axios.delete(`/api/posts/${id}`)
       .then(res => {
-        if(res.n === 1 && res.ok === 1)
+        if(res.data.n === 1 && res.data.ok === 1)
           dispatch(deletedPost(id));
       })
       .catch(err => dispatch(setPostsErrors(err.response.data)))
