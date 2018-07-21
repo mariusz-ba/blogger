@@ -25,8 +25,11 @@ export default class Editor extends Component {
   render() {
     const { content } = this.state;
 
+    const submitText = this.props.submitText ? this.props.submitText : 'Add comment';
+    const editorClass = this.props.className ? this.props.className : '';
+
     return (
-      <div className="comment-editor">
+      <div className={`comment-editor ${editorClass}`}>
         <form class="form">
           <div className="form-field">
             <textarea
@@ -38,7 +41,9 @@ export default class Editor extends Component {
             </textarea>
           </div>
           <div className="form-field">
-            <button type="submit" onClick={this.submitComment}>Add comment</button>
+            <button type="submit" onClick={this.submitComment}>
+              { submitText }
+            </button>
           </div>
         </form>
       </div>
@@ -48,5 +53,6 @@ export default class Editor extends Component {
 
 Editor.propTypes = {
   content: PropTypes.string,
-  onCommentSubmit: PropTypes.func.isRequired
+  onCommentSubmit: PropTypes.func.isRequired,
+  submitText: PropTypes.string
 }

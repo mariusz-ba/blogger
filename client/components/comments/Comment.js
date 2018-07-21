@@ -30,7 +30,7 @@ export default class Comment extends Component {
     const ccomment = reference.type === 'comment' ? 'comment--indentation' : '';
 
     const commentBody = this.state.edit ?
-      ( <Editor content={content} onCommentSubmit={this.onCommentEdited} /> ) :
+      ( <Editor className="comment-editor--update" content={content} onCommentSubmit={this.onCommentEdited} submitText="Update" /> ) :
       ( <p>{content}</p> );
 
     return (
@@ -40,8 +40,10 @@ export default class Comment extends Component {
         </div>
         <div className="comment__content">
           <div className="comment__header">
-            <h4 className="comment__author"><Link to={`/profile/${author._id}`}>{author.meta.firstname} {author.meta.lastname}</Link></h4>
-            <p className="comment__date"><small>{prettify(createdAt)}</small></p>
+            <div className="comment__header-wrapper">
+              <h4 className="comment__author"><Link to={`/profile/${author._id}`}>{author.meta.firstname} {author.meta.lastname}</Link></h4>
+              <p className="comment__date"><small>{prettify(createdAt)}</small></p>
+            </div>
             <div className="comment__actions">
               <button className="comment__actions-open">Open</button>
               <ul>
