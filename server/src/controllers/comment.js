@@ -58,6 +58,7 @@ export const updateComment = (req, res, next) => {
     { $set: { content, updatedAt: Date.now() }}, 
     { new: true }
   )
+    .populate('author', ['username', 'meta'])
     .then(comment => res.status(200).json(comment))
     .catch(err => next(err));
 }
