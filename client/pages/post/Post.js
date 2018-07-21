@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { fetchPost } from '../../actions/postsActions';
-import { fetchComments, createComment } from '../../actions/commentsActions';
+import { fetchComments, createComment, deleteComment, updateComment } from '../../actions/commentsActions';
 import { prettify } from '../../utils/prettyDate';
 import axios from 'axios';
 
@@ -46,6 +46,10 @@ class Post extends Component {
     })
   }
 
+  onDeleteComment = (commentId) => {
+    this.props.deleteComment(commentId);
+  }
+
   render() {
     const { id } = this.props.match.params;
     const { isFetching, posts } = this.props.posts;
@@ -64,6 +68,11 @@ class Post extends Component {
       return (<h1>404. Not found</h1>);
     }
 
+    const commentsActions = [
+      { name: 'Delete', handler: this.onDeleteComment },
+      { name: 'Edit', handler: null }
+    ]
+
     return (
       <div className="container">
         <div className="post-layout">
@@ -81,7 +90,10 @@ class Post extends Component {
             <Editor onCommentSubmit={(content) => this.submitComment(content)} />
             { 
               Object.values(comments).map(comment => (
-                <Comment key={comment._id} { ...comment }/>
+                <Comment 
+                  key={comment._id} { ...comment } 
+                  actions={commentsActions} 
+                  onUpdateComment={(comment) => this.props.updateComment(comment._id, comment)}/>
               ))
             }
           </div>
@@ -126,4 +138,4 @@ class Post extends Component {
 
 const mapStateToProps = ({ posts, comments }) => ({ posts, comments });
 
-export default withRouter(connect(mapStateToProps, { fetchPost, fetchComments, createComment })(Post));
+export default withRouter(connect(mapStateToProps, { fetchPost, fetchComments, createComment, deleteComment, updateComment })(Post));
