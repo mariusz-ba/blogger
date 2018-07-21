@@ -15,6 +15,7 @@ export const getComments = (req, res, next) => {
   if(!reference.id) {
     // Both postId and commentId not specified
     Comment.find({})
+      .populate('author', ['username', 'meta'])
       .then(comments => res.status(200).json(comments))
       .catch(err => next(err));
   } else {
@@ -22,6 +23,7 @@ export const getComments = (req, res, next) => {
       'reference.type': reference.type,
       'reference.id': reference.id
     })
+      .populate('author', ['username', 'meta'])
       .then(comments => res.status(200).json(comments))
       .catch(err => next(err));
   }
@@ -38,6 +40,7 @@ export const createComment = (req, res, next) => {
   const author = req.user._id;
 
   Comment.create({ content, reference, author })
+    .then(comment => Comment.populate(comment, { path: 'author', select: ['username', 'meta']}))
     .then(comment => res.status(201).json(comment))
     .catch(err => next(err));
 }
