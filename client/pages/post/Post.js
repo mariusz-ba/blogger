@@ -68,11 +68,6 @@ class Post extends Component {
       return (<h1>404. Not found</h1>);
     }
 
-    const commentsActions = [
-      { name: 'Delete', handler: this.onDeleteComment },
-      { name: 'Edit', handler: null }
-    ]
-
     return (
       <div className="container">
         <div className="post-layout">
@@ -89,12 +84,21 @@ class Post extends Component {
             </div>
             <Editor onCommentSubmit={(content) => this.submitComment(content)} />
             { 
-              Object.values(comments).map(comment => (
-                <Comment 
-                  key={comment._id} { ...comment } 
-                  actions={commentsActions} 
-                  onUpdateComment={(comment) => this.props.updateComment(comment._id, comment)}/>
-              ))
+              Object.values(comments).map(comment => {
+                const commentsActions = 
+                  (comment.author._id === this.props.auth.user._id) ?
+                  [
+                    { name: 'Delete', handler: this.onDeleteComment },
+                    { name: 'Edit', handler: null }
+                  ] :
+                  [];
+                return (
+                  <Comment 
+                    key={comment._id} { ...comment } 
+                    actions={commentsActions} 
+                    onUpdateComment={(comment) => this.props.updateComment(comment._id, comment)}/>
+                )
+              })
             }
           </div>
           <div>
@@ -136,6 +140,6 @@ class Post extends Component {
   }
 }
 
-const mapStateToProps = ({ posts, comments }) => ({ posts, comments });
+const mapStateToProps = ({ posts, comments, auth }) => ({ posts, comments, auth });
 
 export default withRouter(connect(mapStateToProps, { fetchPost, fetchComments, createComment, deleteComment, updateComment })(Post));
