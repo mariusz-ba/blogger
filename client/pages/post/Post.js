@@ -6,9 +6,11 @@ import { fetchComments, createComment } from '../../actions/commentsActions';
 import { prettify } from '../../utils/prettyDate';
 import axios from 'axios';
 
+import Comment from '../../components/comments/Comment';
+import Editor from '../../components/comments/Editor';
+
 class Post extends Component {
   state = {
-    commentEditor: '',
     recentPosts: [],
     errors: null
   }
@@ -34,14 +36,9 @@ class Post extends Component {
     this.props.fetchComments({ post: this.props.match.params.id });
   }
 
-  commentEditorChange = e => {
-    this.setState({ commentEditor: e.target.value });
-  }
-
-  submitComment = e => {
-    e.preventDefault();
+  submitComment = comment => {
     this.props.createComment({
-      content: this.state.commentEditor,
+      content: comment.content,
       reference: {
         type: 'post',
         id: this.props.match.params.id
@@ -53,7 +50,7 @@ class Post extends Component {
     const { id } = this.props.match.params;
     const { isFetching, posts } = this.props.posts;
     const { comments } = this.props.comments;
-    const { recentPosts, commentEditor } = this.state;;
+    const { recentPosts } = this.state;;
 
     if(isFetching) {
       // render loading screen
@@ -81,13 +78,12 @@ class Post extends Component {
                 <div className="post__content-wrapper" dangerouslySetInnerHTML={{ __html: post.content }}></div>
               </div>
             </div>
+            <Editor onCommentSubmit={(content) => this.submitComment(content)} />
             { 
               Object.values(comments).map(comment => (
-                <div key={comment._id}>{comment.content}</div>
+                <Comment key={comment._id} { ...comment }/>
               ))
             }
-            <input type="text" value={commentEditor} onChange={this.commentEditorChange}/>
-            <button onClick={this.submitComment}>Add comment</button>
           </div>
           <div>
             <div className="author">
