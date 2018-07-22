@@ -77,6 +77,13 @@ class Post extends Component {
                 <img className="post__cover" src={post.cover} alt="Cover"/>
               </div>
               <div className="post__content">
+                <div className="post__actions">
+                  <button className="post__action"><i class="fas fa-thumbs-up"></i> Like</button>
+                  <button className="post__action"><i class="fas fa-comment"></i> Comment</button>
+                  { this.props.auth.user._id === post.author._id &&
+                    <Link className="post__action" to={`/posts/${post._id}/edit`}><i class="fas fa-edit"></i> Edit</Link>
+                  }
+                </div>
                 <h5 className="post__subheading">{prettify(post.createdAt)}</h5>
                 <h2 className="post__heading">{post.title}</h2>
                 <div className="post__content-wrapper" dangerouslySetInnerHTML={{ __html: post.content }}></div>

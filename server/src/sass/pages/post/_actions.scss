@@ -1,0 +1,37 @@
+.post__actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.post__action {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  text-decoration: none;
+  color: #1a1a1a;
+  font-size: .8rem;
+  font-weight: bold;
+  background: rgba(0, 0, 0, .125);
+  border-radius: 3px;
+  padding: .5rem 1rem;
+  margin: 0 .5rem;
+
+  transition: background linear .125s;
+
+  &:hover {
+    cursor: pointer;
+    background: #00a0eb;
+    color: #fff;
+  }
+}
+
+.post__action--active {
+  background: #00a0eb !important;
+  color: #fff !important;
+
+  &:hover {
+    background: lighten(#00a0eb, 20%) !important;
+  }
+}
